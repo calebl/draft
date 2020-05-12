@@ -1,15 +1,19 @@
 import React, {useState} from 'react';
 import './App.scss';
-import Compose from "./components/compose";
+import Compose from "./components/Compose";
 
 const App = () => {
   const [content, setContent] = useState('');
 
-  const handleContentChange = (content) => setContent(content);
+  const addContent = (newContent) => {
+    const updatedContent = content !== '' ? content + "<br/>" + newContent : newContent;
+
+    setContent(updatedContent);
+  };
 
   return (
     <div className="App">
-      <Compose onChange={handleContentChange} value={content}/>
+      <Compose addText={addContent} text={content}/>
     </div>
   );
 }
