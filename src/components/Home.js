@@ -1,21 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import styled from "styled-components";
+import { withRouter, Link } from "react-router-dom";
+
+const HomeContainer = styled.div`
+`;
 
 const Home = ({text, history}) => {
-  const viewCompose = ()=>{
-    history.push("/compose")
-  };
-
-  const viewEdit = ()=>{
-    history.push("/edit")
-  };
-
   return (
-    <div>
-      <button onClick={viewCompose}>Compose</button>
-      <button onClick={viewEdit}>Edit</button>
-    </div>
+    <HomeContainer>
+      <Link to="/compose">Start Writing</Link>
+      <Link to="/edit">Edit</Link>
+    </HomeContainer>
   )
 };
 
