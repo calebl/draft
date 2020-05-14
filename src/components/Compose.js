@@ -3,11 +3,18 @@ import Trix from "trix";
 import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import {withRouter, Link} from "react-router-dom";
 
 const ComposeContainer = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
+`;
+
+const HeaderContainer = styled.div`
+  height: 50px;
+  width: 100%;
+  text-align: left;
 `;
 
 const ViewContainer = styled.div`
@@ -52,7 +59,7 @@ const EnterButton = styled.button`
   }
 `;
 
-const Compose = props => {
+const Compose = ({text, addToStory, history}) => {
   const trixInput = React.createRef();
   const htmlParser = new Parser();
   const [content, setContent] = useState('');
@@ -71,15 +78,26 @@ const Compose = props => {
   };
 
   const addText = () => {
-    props.addText(content);
+    addToStory(content);
     setContent('');
     trixInput.current.editor.loadHTML("")
   };
 
+  const goHome = ()=>{
+    history.push('/')
+  };
+
+  const goBack = ()=>{
+    history.back();
+  };
+
   return (
     <ComposeContainer>
+      <HeaderContainer>
+        <Link to='/'>{'Home'}</Link>
+      </HeaderContainer>
       <ViewContainer>
-        {htmlParser.parse(props.text)}
+        {htmlParser.parse(text)}
       </ViewContainer>
       <WriteContainer onKeyPress={listenForEnter} tabindex="0">
         <input type={"hidden"} id={"trix"} value={content}/>
@@ -92,8 +110,9 @@ const Compose = props => {
 };
 
 Compose.propTypes = {
-  addText: PropTypes.func,
-  text: PropTypes.string
+  addToStory: PropTypes.func,
+  text: PropTypes.string,
+  history: PropTypes.object.isRequired
 };
 
-export default Compose;
+export default withRouter(Compose);
