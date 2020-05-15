@@ -4,17 +4,9 @@ import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {withRouter, Link} from "react-router-dom";
+import {Container, HeaderContainer} from "../elements";
 
-const ComposeContainer = styled.div`
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const HeaderContainer = styled.div`
-  height: 50px;
-  width: 100%;
-  text-align: left;
+const ComposeContainer = styled(Container)`
 `;
 
 const ViewContainer = styled.div`
@@ -68,7 +60,7 @@ const Compose = ({text, addToStory, history}) => {
     trixInput.current.addEventListener("trix-change", event => {
       setContent(event.target.innerHTML);
     });
-  });
+  }, []);
 
   const listenForEnter = (e) => {
     if(e.key === "Enter"){
@@ -83,18 +75,11 @@ const Compose = ({text, addToStory, history}) => {
     trixInput.current.editor.loadHTML("")
   };
 
-  const goHome = ()=>{
-    history.push('/')
-  };
-
-  const goBack = ()=>{
-    history.back();
-  };
-
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Link to='/'>{'Home'}</Link>
+        <Link to='/'>{'Done'}</Link>
+        <Link to='/edit'>Edit</Link>
       </HeaderContainer>
       <ViewContainer>
         {htmlParser.parse(text)}

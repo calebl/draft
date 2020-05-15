@@ -16,9 +16,10 @@ const story = (state = initialState, action) => {
         text: updatedContent
       });
     case UPDATE_STORY_TEXT:
+      const previousText = state.previousText ?? [];
       return Object.assign({}, state, {
         text: action.text,
-        previousText: [...state.previousText, state.text]
+        previousText: [...previousText, state.text]
       });
     default:
       return state;
