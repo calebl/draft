@@ -72,7 +72,9 @@ const Compose = ({text, addToStory, history}) => {
   const addText = () => {
     addToStory(content);
     setContent('');
-    trixInput.current.editor.loadHTML("")
+    if(trixInput.current.editor) {
+      trixInput.current.editor.loadHTML("")
+    }
   };
 
   return (
@@ -86,9 +88,9 @@ const Compose = ({text, addToStory, history}) => {
       </ViewContainer>
       <WriteContainer onKeyPress={listenForEnter} tabindex="0">
         <input type={"hidden"} id={"trix"} value={content}/>
-        <trix-editor input="trix" ref={trixInput} />
+        <trix-editor input="trix" ref={trixInput} data-testid={"compose-editor"} />
       </WriteContainer>
-      <EnterButton onClick={addText}>Add</EnterButton>
+      <EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>
 
     </ComposeContainer>
   )
@@ -96,8 +98,7 @@ const Compose = ({text, addToStory, history}) => {
 
 Compose.propTypes = {
   addToStory: PropTypes.func,
-  text: PropTypes.string,
-  history: PropTypes.object.isRequired
+  text: PropTypes.string
 };
 
 export default withRouter(Compose);

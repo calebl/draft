@@ -51,8 +51,6 @@ const Edit = ({text, updateStory, history}) => {
     });
   }, []);
 
-
-
   const updateText = ()=>{
     updateStory(content);
   };
