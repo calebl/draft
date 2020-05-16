@@ -9,11 +9,13 @@ const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
+  overflow: auto;
 
   trix-editor {
     text-align: left;
     flex: 1;
     height: 100%;
+    overflow: auto;
   }
 `;
 
@@ -26,6 +28,8 @@ const SaveButton = styled.button`
   color: white;
   padding: 10px 20px;
   font-family: karla;
+  width: 100px;
+  border-radius: 3px;
 
   :active {
     background: white;
@@ -41,6 +45,7 @@ const SaveButton = styled.button`
 const Edit = ({text, updateStory, history}) => {
   const trixInput = React.createRef();
   const [content, setContent] = useState('');
+  const [saveText, setSaveText] = useState('Save');
 
   useEffect(()=> {
     setContent(text);
@@ -53,6 +58,10 @@ const Edit = ({text, updateStory, history}) => {
 
   const updateText = ()=>{
     updateStory(content);
+    setSaveText("Saved!");
+    setTimeout(()=>{
+      setSaveText('Save')
+    }, 1000);
   };
 
   return (
@@ -67,7 +76,7 @@ const Edit = ({text, updateStory, history}) => {
         <input type={"hidden"} id={"trix"} value={content}/>
         <trix-editor input="trix" ref={trixInput} />
       </EditContainer>
-      <SaveButton onClick={updateText}>Save</SaveButton>
+      <SaveButton onClick={updateText}>{saveText}</SaveButton>
 
     </Container>
   )

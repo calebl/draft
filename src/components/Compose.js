@@ -10,15 +10,18 @@ const ComposeContainer = styled(Container)`
 `;
 
 const ViewContainer = styled.div`
-  height: 400px;
+  text-align: left;
+  flex: 1;
+  width: 400px;
+  padding: 20px;
+  line-height: 18px;
+  font-size: 12px;
+  
+  overflow: auto;
 `;
 
 const WriteContainer = styled.div`
   padding: 5px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
   
   trix-toolbar {
     display: none;
@@ -51,10 +54,22 @@ const EnterButton = styled.button`
   }
 `;
 
-const Compose = ({text, addToStory, history}) => {
+const Compose = ({text, addToStory}) => {
   const trixInput = React.createRef();
+  const messagesEndRef = React.createRef();
+  const storyTextRef = React.createRef();
   const htmlParser = new Parser();
   const [content, setContent] = useState('');
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView();
+  };
+
+  useEffect(scrollToBottom, [content]);
+
+  useEffect(()=> {
+
+  }, [content]);
 
   useEffect(() => {
     trixInput.current.addEventListener("trix-change", event => {
@@ -77,14 +92,17 @@ const Compose = ({text, addToStory, history}) => {
     }
   };
 
+  const viewText = htmlParser.parse(text);
+
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Link to='/'>{'Done'}</Link>
+        <Link to='/'>Done</Link>
         <Link to='/edit'>Edit</Link>
       </HeaderContainer>
-      <ViewContainer>
-        {htmlParser.parse(text)}
+      <ViewContainer ref={storyTextRef}>
+        {viewText}
+        <div ref={messagesEndRef}/>
       </ViewContainer>
       <WriteContainer onKeyPress={listenForEnter} tabindex="0">
         <input type={"hidden"} id={"trix"} value={content}/>
