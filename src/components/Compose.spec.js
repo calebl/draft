@@ -3,15 +3,17 @@ import Compose from "./Compose";
 import { renderWithRouter, click, typeIn} from "../testUtils";
 
 const renderComposeComponent = (overrideProps) => {
-  const addToStoryMock = jest.fn();
+  const addToSessionMock = jest.fn();
+  const recordSessionMock = jest.fn();
   const component = renderWithRouter(
     <Compose
-      addToStory={addToStoryMock}
+      addToSession={addToSessionMock}
+      recordSession={recordSessionMock}
       text={"initial text"}
       {...overrideProps}
       />
   );
-  return {...component, addToStoryMock};
+  return {...component, addToSessionMock, recordSessionMock};
 };
 
 describe("Compose", ()=>{
@@ -26,11 +28,12 @@ describe("Compose", ()=>{
   it("Should call add to story when Add is clicked",()=>{
     const {
       getByTestId,
-      addToStoryMock
+      addToSessionMock,
+      recordSessionMock
     } = renderComposeComponent();
 
     click(getByTestId('add-button'));
 
-    expect(addToStoryMock).toHaveBeenCalledTimes(1);
+    expect(addToSessionMock).toHaveBeenCalledTimes(1);
   })
 })

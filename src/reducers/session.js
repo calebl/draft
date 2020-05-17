@@ -1,20 +1,22 @@
 import {
-  ADD_TO_STORY,
-  UPDATE_STORY_TEXT
-} from "../actions/story";
+  ADD_TO_SESSION,
+  UPDATE_SESSION_TEXT
+} from "../actions/session";
 
 const initialState = {
-  text: ''
+  text: '',
+  wordCount: 0,
+  time: 0
 };
 
-const story = (state = initialState, action) => {
+const session = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_STORY:
+    case ADD_TO_SESSION:
       const updatedContent = state.text !== '' ? state.text + "<br/>" + action.text : action.text;
       return Object.assign({}, state, {
         text: updatedContent
       });
-    case UPDATE_STORY_TEXT:
+    case UPDATE_SESSION_TEXT:
       return Object.assign({}, state, {
         text: action.text
       });
@@ -24,4 +26,4 @@ const story = (state = initialState, action) => {
   }
 };
 
-export default story;
+export default session;

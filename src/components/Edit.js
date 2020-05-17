@@ -42,7 +42,7 @@ const SaveButton = styled.button`
   }
 `;
 
-const Edit = ({text, updateStory, history}) => {
+const Edit = ({text, updateStory: updateSession, history}) => {
   const trixInput = React.createRef();
   const [content, setContent] = useState('');
   const [saveText, setSaveText] = useState('Save');
@@ -57,7 +57,7 @@ const Edit = ({text, updateStory, history}) => {
   }, []);
 
   const updateText = ()=>{
-    updateStory(content);
+    updateSession(content);
     setSaveText("Saved!");
     setTimeout(()=>{
       setSaveText('Save')
@@ -69,7 +69,6 @@ const Edit = ({text, updateStory, history}) => {
       <HeaderContainer>
         <h3>Edit</h3>
         <Link to='/'>{'Done'}</Link>
-        <Link to='/compose'>{'Write'}</Link>
       </HeaderContainer>
 
       <EditContainer>
@@ -83,9 +82,8 @@ const Edit = ({text, updateStory, history}) => {
 };
 
 Edit.propTypes = {
-  updateStory: PropTypes.func,
-  text: PropTypes.string,
-  history: PropTypes.object.isRequired
+  updateSession: PropTypes.func,
+  text: PropTypes.string
 };
 
 export default withRouter(Edit)

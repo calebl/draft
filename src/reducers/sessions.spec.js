@@ -2,7 +2,7 @@ import sessionsReducer from './sessions'
 import {
   RECORD_SESSION
 } from "../actions/sessions";
-import storyReducer from "./story";
+import storyReducer from "./session";
 
 const defaultState = {
   sessions: []

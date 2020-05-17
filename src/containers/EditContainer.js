@@ -1,6 +1,6 @@
 import React from "react"
 import {connect} from "react-redux";
-import {updateStory} from "../actions/story";
+import {updateSession} from "../actions/session";
 import Edit from "../components/Edit";
 
 
@@ -9,7 +9,7 @@ const mapStateToProps = ({story}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateStory: text => dispatch(updateStory(text))
+  updateSession: text => dispatch(updateSession(text))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

@@ -12,11 +12,16 @@ export const Container = styled.div`
 `;
 
 export const HeaderContainer = styled.div`
-  height: 50px;
+  height: 30px;
   width: 100%;
   text-align: left;
   
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
+`;
+
+export const Title = styled.h3`
+  margin-top: 0;
+  color: ${props => props.theme.purple}
 `;

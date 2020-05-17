@@ -1,5 +1,7 @@
 export const theme = {
   blue: 'blue',
   purple: 'purple',
-  lightgray: 'lightgray'
+  lightgray: 'lightgray',
+
+  borderRadius: '5px'
 };
