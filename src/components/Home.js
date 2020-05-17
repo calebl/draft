@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
+import {Title} from "../elements";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ const StyledLink = styled(Link)`
 const Home = ({text, history}) => {
   return (
     <HomeContainer>
+      <div>
+        <Title>Write</Title>
+        <small>by Curiosity & Conflict</small>
+      </div>
+
       <StyledLink to="/compose">Start New Session</StyledLink>
     </HomeContainer>
   )
