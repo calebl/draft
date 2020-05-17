@@ -9,7 +9,7 @@ const HomeContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  background: gray;
+  background: ${props => props.theme.lightgray};
   
   position: absolute;
   top: 0;
@@ -18,11 +18,32 @@ const HomeContainer = styled.div`
   right: 0;
 `;
 
+const StyledLink = styled(Link)`
+  border: 2px solid ${props => props.theme.purple};
+  color: ${props => props.theme.purple};
+  font-weight: bold;
+  
+  border-radius: 5px;
+  width: 200px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s;
+  
+  &:hover, &:active {
+    text-decoration: none;
+    
+    color: ${props => props.theme.lightgray};
+    background-color: ${props => props.theme.purple};
+  }
+`;
+
 const Home = ({text, history}) => {
   return (
     <HomeContainer>
-      <Link to="/compose">Write</Link>
-      <Link to="/edit">Edit</Link>
+      <StyledLink to="/compose">Start New Session</StyledLink>
     </HomeContainer>
   )
 };

@@ -4,8 +4,7 @@ import {
 } from "../actions/story";
 
 const initialState = {
-  text: '',
-  previousText: []
+  text: ''
 };
 
 const story = (state = initialState, action) => {
@@ -16,11 +15,10 @@ const story = (state = initialState, action) => {
         text: updatedContent
       });
     case UPDATE_STORY_TEXT:
-      const previousText = state.previousText ?? [];
       return Object.assign({}, state, {
-        text: action.text,
-        previousText: [...previousText, state.text]
+        text: action.text
       });
+
     default:
       return state;
   }

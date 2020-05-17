@@ -42,6 +42,5 @@ describe("Story reducer", ()=> {
     });
 
     expect(result).toHaveProperty("text", 'new text');
-    expect(result).toHaveProperty('previousText', ['some text'])
   })
 });

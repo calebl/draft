@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.scss';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import ComposeContainer from "./containers/ComposeContainer";
@@ -28,6 +28,10 @@ const routes = [
 ];
 
 const App = () => {
+  useEffect(()=>{
+
+  },[]);
+
   return (
     <div className="App">
       <Router>
