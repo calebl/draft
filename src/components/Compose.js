@@ -32,7 +32,7 @@ const ColumnContent = styled.div`
 const TextColumn = styled(Column)`
   text-align: left;
   line-height: 18px;
-  font-size: 12px;
+  font-size: 14px;
   background: lightgray;
   
   overflow: auto;
@@ -61,8 +61,8 @@ const EnterButton = styled.button`
   ${ButtonStyles}
 
   position: absolute;
-  bottom: 10px;
-  right: 0;
+  bottom: 5px;
+  right: 5px;
   border: 0;
 `;
 
