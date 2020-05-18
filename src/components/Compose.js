@@ -4,7 +4,7 @@ import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {withRouter, Link} from "react-router-dom";
-import {Container, HeaderContainer, Title} from "../elements";
+import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} from "../elements";
 
 const ComposeContainer = styled(Container)`
   display: flex;
@@ -15,23 +15,31 @@ const ViewContainer = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: center;
+  
+  flex: 1;
 `;
 
-const TextColumn = styled.div`
-  text-align: left;
+const Column = styled.div`
   flex: 1;
-  width: 400px;
+  max-width: 500px;
+  position: relative;
+`;
+
+const ColumnContent = styled.div`
   padding: 20px;
+`;
+
+const TextColumn = styled(Column)`
+  text-align: left;
   line-height: 18px;
   font-size: 12px;
-  max-width: 400px;
   background: lightgray;
   
   overflow: auto;
-`
+`;
 
 const Composer = styled.div`
-  padding: 5px;
+  margin-top: 5px;
   flex: 1;
   
   trix-toolbar {
@@ -47,31 +55,19 @@ const Composer = styled.div`
 const ComposerContainer = styled.div`
   display: flex;
   justify-content: center;
-  position: relative;
-  
-  max-width: 500px;
 `;
 
 const EnterButton = styled.button`
+  ${ButtonStyles}
+
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 0;
   border: 0;
-  border-radius: ${props => props.theme.borderRadius};
-  border: 1px solid ${props => props.theme.purple};
-  background: ${props => props.theme.purple};
-  color: white;
-  padding: 10px 20px;
-  font-weight: bold;
+`;
 
-  :active {
-    background: white;
-    color: ${props => props.theme.purple};
-  }
-  
-  :focus {
-    outline: none;
-  }
+const HeaderLink = styled(Link)`
+  ${HeaderActionStyles}
 `;
 
 const Compose = ({text, addToSession, recordSession}) => {
@@ -82,14 +78,14 @@ const Compose = ({text, addToSession, recordSession}) => {
   const [content, setContent] = useState('');
 
   const scrollToBottom = () => {
-    if(messagesEndRef.current.scrollIntoView) {
+    if (messagesEndRef.current.scrollIntoView) {
       messagesEndRef.current.scrollIntoView();
     }
   };
 
   useEffect(scrollToBottom, [content]);
 
-  useEffect(()=> {
+  useEffect(() => {
 
   }, [content]);
 
@@ -100,14 +96,14 @@ const Compose = ({text, addToSession, recordSession}) => {
   }, []);
 
   const listenForEnter = (e) => {
-    if(e.key === "Enter"){
+    if (e.key === "Enter") {
       addText();
       e.preventDefault()
     }
   };
 
   const addText = () => {
-    if(content !== '') {
+    if (content !== '') {
       addToSession(content);
       setContent('');
       if (trixInput.current.editor) {
@@ -122,20 +118,24 @@ const Compose = ({text, addToSession, recordSession}) => {
     <ComposeContainer>
       <HeaderContainer>
         <Title>Compose</Title>
-        <Link to='/'>Done</Link>
+        <HeaderLink to='/edit'>Done</HeaderLink>
       </HeaderContainer>
       <ViewContainer ref={storyTextRef}>
         <TextColumn>
-          {viewText}
-          <div ref={messagesEndRef}/>
+          <ColumnContent>
+            {viewText}
+            <div ref={messagesEndRef}/>
+          </ColumnContent>
         </TextColumn>
       </ViewContainer>
       <ComposerContainer>
-        <Composer onKeyPress={listenForEnter} tabindex="0">
-          <input type={"hidden"} id={"trix"} value={content}/>
-          <trix-editor input="trix" ref={trixInput} data-testid={"compose-editor"} />
-        </Composer>
-        <EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>
+        <Column>
+          <Composer onKeyPress={listenForEnter} tabindex="0">
+            <input type={"hidden"} id={"trix"} value={content}/>
+            <trix-editor input="trix" ref={trixInput} data-testid={"compose-editor"}/>
+          </Composer>
+          <EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>
+        </Column>
       </ComposerContainer>
     </ComposeContainer>
   )
