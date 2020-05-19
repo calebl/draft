@@ -1,22 +1,25 @@
 import {
-  ADD_TO_SESSION,
-  UPDATE_SESSION_TEXT
+  ActionType
 } from "../actions/session";
 
-const initialState = {
+interface SessionAction extends Session {
+  type: ActionType;
+}
+
+const initialState : Session = {
   text: '',
   wordCount: 0,
   time: 0
 };
 
-const session = (state = initialState, action) => {
+const session = (state = initialState, action : SessionAction) => {
   switch (action.type) {
-    case ADD_TO_SESSION:
+    case ActionType.ADD_TO_SESSION:
       const updatedContent = state.text !== '' ? state.text + "<br/>" + action.text : action.text;
       return Object.assign({}, state, {
         text: updatedContent
       });
-    case UPDATE_SESSION_TEXT:
+    case ActionType.UPDATE_SESSION_TEXT:
       return Object.assign({}, state, {
         text: action.text
       });

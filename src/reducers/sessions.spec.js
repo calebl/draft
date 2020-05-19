@@ -1,8 +1,7 @@
 import sessionsReducer from './sessions'
 import {
-  RECORD_SESSION
+  ActionType
 } from "../actions/sessions";
-import storyReducer from "./session";
 
 const defaultState = {
   sessions: []
@@ -16,7 +15,7 @@ describe("Sessions reducer", () => {
 
   it("Adds a session when RECORD_SESSION is called", ()=>{
     const result = sessionsReducer(defaultState, {
-      type: RECORD_SESSION,
+      type: ActionType.RECORD_SESSION,
       session: {
         text: 'new text',
         wordCount: 2,

@@ -1,7 +1,6 @@
 import sessionReducer from './session';
 import {
-  ADD_TO_SESSION,
-  UPDATE_SESSION_TEXT
+  ActionType
 } from "../actions/session";
 
 const defaultState = {
@@ -18,7 +17,7 @@ describe("Story reducer", ()=> {
 
   it("Adds to the story text when ADD_TO_STORY is called", ()=>{
     const result = sessionReducer(defaultState, {
-      type: ADD_TO_SESSION,
+      type: ActionType.ADD_TO_SESSION,
       text: 'new text'
     });
 
@@ -26,8 +25,8 @@ describe("Story reducer", ()=> {
   });
 
   it("Add newline when ADD_TO_STORY is called with existing text", () => {
-    const result = sessionReducer({text: "some text", previousText: []}, {
-      type: ADD_TO_SESSION,
+    const result = sessionReducer({text: "some text"}, {
+      type: ActionType.ADD_TO_SESSION,
       text: 'new text'
     });
 
@@ -35,8 +34,8 @@ describe("Story reducer", ()=> {
   });
 
   it("Updates text when UPDATE_STORY_TEXT is called", ()=>{
-    const result = sessionReducer({text: "some text", previousText: []}, {
-      type: UPDATE_SESSION_TEXT,
+    const result = sessionReducer({text: "some text"}, {
+      type:ActionType.UPDATE_SESSION_TEXT,
       text: 'new text'
     });
 

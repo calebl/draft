@@ -70,7 +70,13 @@ const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
 `;
 
-const Compose = ({text, addToSession, recordSession}) => {
+interface PropTypes {
+  text: string,
+  addToSession: (text : string) => void,
+  recordSession: (session : Session) => void
+}
+
+const Compose = ({text, addToSession, recordSession} : PropTypes) => {
   const trixInput = React.createRef();
   const messagesEndRef = React.createRef();
   const storyTextRef = React.createRef();

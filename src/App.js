@@ -17,6 +17,11 @@ const routes = [
     options: {},
   },
   {
+    component: ComposeContainer,
+    path: "/compose",
+    options: {},
+  },
+  {
     component: EditContainer,
     path: "/edit",
     options: {},
