@@ -37,10 +37,6 @@ const Edit = ({text, updateSession}) => {
   const [content, setContent] = useState(text);
   const [saveText, setSaveText] = useState('Save');
 
-  // useEffect(()=> {
-  //   setContent(text);
-  // }, []);
-
   const saveUpdates = ()=>{
     updateSession(content);
 
@@ -58,7 +54,7 @@ const Edit = ({text, updateSession}) => {
     <Container>
       <HeaderContainer>
         <Title>Edit</Title>
-        <HeaderLink to='/'>{'Complete Session'}</HeaderLink>
+        <HeaderLink to='/summary'>{'Complete Session'}</HeaderLink>
       </HeaderContainer>
 
       <EditContainer>

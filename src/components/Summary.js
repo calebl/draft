@@ -22,6 +22,13 @@ const ColumnContent = styled.div`
   padding: 20px;
 `;
 
+const TextColumn = styled.div`
+  padding: 20px;
+  background-color: lightgray;
+  overflow: auto;
+  height: 100%;
+`
+
 const SummaryColumn = styled.div`
   flex: 1;
   display: flex;
@@ -29,7 +36,7 @@ const SummaryColumn = styled.div`
   align-items: center;
 `;
 
-const Summary = ({text}) => {
+const Summary = ({text, recordSession}) => {
 
   const htmlParser = new Parser();
   const viewText = htmlParser.parse(text);
@@ -41,9 +48,9 @@ const Summary = ({text}) => {
       </HeaderContainer>
       <ViewContainer>
         <Column>
-          <ColumnContent>
+          <TextColumn>
             {viewText}
-          </ColumnContent>
+          </TextColumn>
         </Column>
 
         <SummaryColumn>
@@ -51,6 +58,8 @@ const Summary = ({text}) => {
             <h4>Summary</h4>
             <p>Word Count: 435</p>
             <p>Session Length: 5 min.</p>
+
+
           </ColumnContent>
         </SummaryColumn>
       </ViewContainer>

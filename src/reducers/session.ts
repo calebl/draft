@@ -1,6 +1,4 @@
-import {
-  ActionType
-} from "../actions/session";
+import {ActionType} from "../actions/session";
 
 interface SessionAction extends Session {
   type: ActionType;
@@ -23,6 +21,9 @@ const session = (state = initialState, action : SessionAction) => {
       return Object.assign({}, state, {
         text: action.text
       });
+
+    case ActionType.CLEAR_SESSION:
+      return Object.assign({}, state, initialState);
 
     default:
       return state;

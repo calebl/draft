@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import ComposeContainer from "./containers/ComposeContainer";
 import EditContainer from "./containers/EditContainer";
 import HomeContainer from "./containers/HomeContainer";
+import SummaryContainer from "./containers/SummaryContainer";
 
 const routes = [
   {
@@ -17,13 +18,13 @@ const routes = [
     options: {},
   },
   {
-    component: ComposeContainer,
-    path: "/compose",
+    component: EditContainer,
+    path: "/edit",
     options: {},
   },
   {
-    component: EditContainer,
-    path: "/edit",
+    component: SummaryContainer,
+    path: "/summary",
     options: {},
   },
   {

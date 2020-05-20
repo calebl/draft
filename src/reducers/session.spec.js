@@ -41,4 +41,15 @@ describe("Story reducer", ()=> {
 
     expect(result).toHaveProperty("text", 'new text');
   })
+
+  it("Clears the session when CLEAR_SESSION is called", ()=>{
+    const result = sessionReducer({text: 'some text', wordCount: 100, time: 100}, {
+      type: ActionType.CLEAR_SESSION
+    });
+
+    expect(result).toHaveProperty('text', '');
+    expect(result).toHaveProperty('wordCount', 0);
+    expect(result).toHaveProperty('time', 0)
+  })
+
 });

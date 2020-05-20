@@ -13,7 +13,7 @@ import {theme} from "./styles";
 
 const {store, persistor} = configureStore();
 
-persistor.purge(); //remove for persistance
+// persistor.purge(); //remove for persistance
 
 ReactDOM.render(
   <React.StrictMode>
