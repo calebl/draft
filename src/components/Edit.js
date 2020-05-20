@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {Link, withRouter} from "react-router-dom";
 import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} from "../elements";
 import PropTypes from "prop-types";
+import TextEditor from "./TextEditor";
 
 const EditContainer = styled.div`
   display: flex;
@@ -32,26 +33,25 @@ const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
 `;
 
-const Edit = ({text, updateSession, history}) => {
-  const trixInput = React.createRef();
-  const [content, setContent] = useState('');
+const Edit = ({text, updateSession}) => {
+  const [content, setContent] = useState(text);
   const [saveText, setSaveText] = useState('Save');
 
-  useEffect(()=> {
-    setContent(text);
-    trixInput.current.editor.loadHTML(text);
+  // useEffect(()=> {
+  //   setContent(text);
+  // }, []);
 
-    trixInput.current.addEventListener("trix-change", event => {
-      setContent(event.target.innerHTML);
-    });
-  }, []);
-
-  const updateText = ()=>{
+  const saveUpdates = ()=>{
     updateSession(content);
+
     setSaveText("Saved!");
     setTimeout(()=>{
       setSaveText('Save')
     }, 1000);
+  };
+
+  const updateContent = (newContent) => {
+    setContent(newContent)
   };
 
   return (
@@ -62,10 +62,9 @@ const Edit = ({text, updateSession, history}) => {
       </HeaderContainer>
 
       <EditContainer>
-        <input type={"hidden"} id={"trix"} value={content}/>
-        <trix-editor input="trix" ref={trixInput} />
+        <TextEditor content={content} textChanged={updateContent} />
       </EditContainer>
-      <SaveButton onClick={updateText}>{saveText}</SaveButton>
+      <SaveButton onClick={saveUpdates}>{saveText}</SaveButton>
 
     </Container>
   )

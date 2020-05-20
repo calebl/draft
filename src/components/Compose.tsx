@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
-import Trix from "trix";
+import React, {useState, useEffect, KeyboardEvent} from "react";
 import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import {withRouter, Link} from "react-router-dom";
+import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} from "../elements";
+import TextEditor from "./TextEditor";
 
 const ComposeContainer = styled(Container)`
   display: flex;
@@ -70,41 +70,29 @@ const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
 `;
 
-interface PropTypes {
-  text: string,
+interface PropTypes extends RouteComponentProps {
+  text?: string,
   addToSession: (text : string) => void,
   recordSession: (session : Session) => void
 }
 
 const Compose = ({text, addToSession, recordSession} : PropTypes) => {
-  const trixInput = React.createRef();
-  const messagesEndRef = React.createRef();
-  const storyTextRef = React.createRef();
+  const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
   const [content, setContent] = useState('');
 
   const scrollToBottom = () => {
-    if (messagesEndRef.current.scrollIntoView) {
+    if (messagesEndRef.current?.scrollIntoView) {
       messagesEndRef.current.scrollIntoView();
     }
   };
 
   useEffect(scrollToBottom, [content]);
 
-  useEffect(() => {
-
-  }, [content]);
-
-  useEffect(() => {
-    trixInput.current.addEventListener("trix-change", event => {
-      setContent(event.target.innerHTML);
-    });
-  }, []);
-
-  const listenForEnter = (e) => {
+  const listenForEnter = (e : KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       addText();
-      e.preventDefault()
     }
   };
 
@@ -112,13 +100,15 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
     if (content !== '') {
       addToSession(content);
       setContent('');
-      if (trixInput.current.editor) {
-        trixInput.current.editor.loadHTML("")
-      }
     }
   };
 
-  const viewText = htmlParser.parse(text);
+  const updateContent = (newContent:string) => {
+    setContent(newContent);
+  }
+
+  const viewText = htmlParser.parse(text ?? '');
+
 
   return (
     <ComposeContainer>
@@ -126,7 +116,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
         <Title>Compose</Title>
         <HeaderLink to='/edit'>Done</HeaderLink>
       </HeaderContainer>
-      <ViewContainer ref={storyTextRef}>
+      <ViewContainer>
         <TextColumn>
           <ColumnContent>
             {viewText}
@@ -136,21 +126,14 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
       </ViewContainer>
       <ComposerContainer>
         <Column>
-          <Composer onKeyPress={listenForEnter} tabindex="0">
-            <input type={"hidden"} id={"trix"} value={content}/>
-            <trix-editor input="trix" ref={trixInput} data-testid={"compose-editor"}/>
+          <Composer onKeyPress={listenForEnter} tabIndex={0}>
+            <TextEditor content={content} textChanged={updateContent} />
           </Composer>
           <EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>
         </Column>
       </ComposerContainer>
     </ComposeContainer>
   )
-};
-
-Compose.propTypes = {
-  addToSession: PropTypes.func.isRequired,
-  recordSession: PropTypes.func.isRequired,
-  text: PropTypes.string
 };
 
 export default withRouter(Compose);
