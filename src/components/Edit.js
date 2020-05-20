@@ -54,7 +54,7 @@ const Edit = ({text, updateSession}) => {
     <Container>
       <HeaderContainer>
         <Title>Edit</Title>
-        <HeaderLink to='/summary'>{'Complete Session'}</HeaderLink>
+        <HeaderLink to='/summary'>{'View Summary'}</HeaderLink>
       </HeaderContainer>
 
       <EditContainer>

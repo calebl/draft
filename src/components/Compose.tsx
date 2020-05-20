@@ -114,7 +114,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
     <ComposeContainer>
       <HeaderContainer>
         <Title>Compose</Title>
-        <HeaderLink to='/edit'>Done</HeaderLink>
+        <HeaderLink to='/edit'>Edit</HeaderLink>
       </HeaderContainer>
       <ViewContainer>
         <TextColumn>

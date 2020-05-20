@@ -36,6 +36,11 @@ export const HeaderActionStyles = css`
   border-radius: ${props => props.theme.borderRadius};
   padding: 5px 10px;
   font-weight: bold;
+  
+  &:hover {
+    color: ${props => props.theme.white};
+    background: ${props => props.theme.purple};
+  }
 `;
 
 export const ButtonStyles = css`

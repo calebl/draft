@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import {Parser} from "html-to-react";
 import {withRouter, Link} from "react-router-dom";
-import {Container, HeaderContainer, Title} from "../elements";
+import {Container, HeaderActionStyles, HeaderContainer, Title} from "../elements";
 
 
 const ViewContainer = styled.div`
@@ -36,10 +36,29 @@ const SummaryColumn = styled.div`
   align-items: center;
 `;
 
-const Summary = ({text, recordSession}) => {
+const StyledButton = styled.button`
+  ${HeaderActionStyles}
+  
+  margin-top: 80px;
+  font-size: 14px;
+  cursor: pointer;
+  
+`;
 
+
+
+const Summary = ({session, recordSession, clearSession, history}) => {
   const htmlParser = new Parser();
-  const viewText = htmlParser.parse(text);
+  const viewText = htmlParser.parse(session.text);
+
+  useEffect(()=>{
+    // record word count
+    // record time
+  }, []);
+
+  const saveSession = () => {
+    recordSession(session);
+  };
 
   return (
     <Container>
@@ -59,7 +78,7 @@ const Summary = ({text, recordSession}) => {
             <p>Word Count: 435</p>
             <p>Session Length: 5 min.</p>
 
-
+            <StyledButton onClick={saveSession}>Complete Session</StyledButton>
           </ColumnContent>
         </SummaryColumn>
       </ViewContainer>
