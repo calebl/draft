@@ -1,7 +1,9 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {Parser} from "html-to-react";
 import {withRouter, Link} from "react-router-dom";
+import {countWords} from "../utils/counter";
+
 import {Container, HeaderActionStyles, HeaderContainer, Title} from "../elements";
 
 
@@ -27,6 +29,12 @@ const TextColumn = styled.div`
   background-color: lightgray;
   overflow: auto;
   height: 100%;
+  
+  white-space: pre;
+  
+  div {
+    white-space: pre;
+  }
 `
 
 const SummaryColumn = styled.div`
@@ -52,13 +60,14 @@ const Summary = ({session, recordSession, clearSession, history}) => {
   const viewText = htmlParser.parse(session.text);
 
   useEffect(()=>{
-    // record word count
     // record time
   }, []);
 
   const saveSession = () => {
     recordSession(session);
   };
+
+  let wordCount = countWords(session.text);
 
   return (
     <Container>
@@ -75,7 +84,7 @@ const Summary = ({session, recordSession, clearSession, history}) => {
         <SummaryColumn>
           <ColumnContent>
             <h4>Summary</h4>
-            <p>Word Count: 435</p>
+            <p>Word Count: {wordCount}</p>
             <p>Session Length: 5 min.</p>
 
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>
