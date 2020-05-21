@@ -26,7 +26,7 @@ export const HeaderContainer = styled.div`
 
 export const Title = styled.h3`
   margin-top: 0;
-  color: ${props => props.theme.purple}
+  color: ${props => props.theme.purple};
 `;
 
 export const HeaderActionStyles = css`

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
 import {Title} from "../elements";
+import CuriosityAndConflictLogoDark from "../assets/CuriosityAndConflictLogoDark.png"
 
 const HomeContainer = styled.div`
   display: flex;
@@ -41,12 +42,28 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const By = styled.small`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledLogo = styled.img`
+  width: 175px;
+  display: inline-block;
+`;
+
+const TitleLarge = styled(Title)`
+  font-size: 48px;
+  margin-bottom: 20px;
+`;
+
 const Home = ({text, history}) => {
   return (
     <HomeContainer>
       <div>
-        <Title>Write</Title>
-        <small>by Curiosity & Conflict</small>
+        <TitleLarge>Write</TitleLarge>
+        <By>by <StyledLogo src={CuriosityAndConflictLogoDark} alt={"Curiosity & Conflict"} /></By>
       </div>
 
       <StyledLink to="/compose">Start New Session</StyledLink>
