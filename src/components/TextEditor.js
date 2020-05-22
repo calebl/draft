@@ -18,14 +18,12 @@ const TextEditor = ({content, textChanged}) => {
     };
 
     trixInput.current.addEventListener("trix-change", listener);
-
-    trixInput.current.focus();
   }, []);
 
   return (
     <React.Fragment>
       <input type={"hidden"} id={"trix"} value={content}/>
-      <trix-editor input="trix" ref={trixInput} data-testid={"compose-editor"}/>
+      <trix-editor autofocus input="trix" ref={trixInput} data-testid={"compose-editor"}/>
     </React.Fragment>
   )
 };

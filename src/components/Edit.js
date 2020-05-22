@@ -1,8 +1,8 @@
 import Trix from "trix"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import styled from "styled-components";
 import {Link, withRouter} from "react-router-dom";
-import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} from "../elements";
+import {Container, HeaderContainer, Title, HeaderActionStyles} from "../elements";
 import PropTypes from "prop-types";
 import TextEditor from "./TextEditor";
 

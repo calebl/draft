@@ -8,7 +8,7 @@ import TextEditor from "./TextEditor";
 
 const ComposeContainer = styled(Container)`
   display: flex;
-  justify-content: center;
+  justify-content: start;
 `;
 
 const ViewContainer = styled.div`
@@ -16,19 +16,19 @@ const ViewContainer = styled.div`
   display: flex;
   justify-content: center;
   
-  flex: 1;
+  flex: 0.7;
 `;
 
 const Column = styled.div`
   flex: 1;
-  max-width: 500px;
+  max-width: 700px;
   position: relative;
 `;
 
 const ColumnContent = styled.div`
   padding: 20px;
-  
   color: gray;
+  font-size: 14px;
 `;
 
 const TextColumn = styled(Column)`
@@ -37,6 +37,8 @@ const TextColumn = styled(Column)`
   font-size: 14px;
   
   overflow: auto;
+  display: flex;
+  align-items: flex-end;
 `;
 
 const Composer = styled.div`
@@ -49,6 +51,8 @@ const Composer = styled.div`
   
   trix-editor {
     text-align: left;
+    border: 0;
+    background-color: #EFEFEF;
   }
   
 `;
@@ -56,15 +60,6 @@ const Composer = styled.div`
 const ComposerContainer = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const EnterButton = styled.button`
-  ${ButtonStyles}
-
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  border: 0;
 `;
 
 const DisappearingHeader = styled(HeaderContainer)`
@@ -93,10 +88,6 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
       messagesEndRef.current.scrollIntoView();
     }
   };
-
-  useEffect(()=>{
-
-  },[]);
 
   useEffect(scrollToBottom, [content]);
 

@@ -19,6 +19,7 @@ const Column = styled.div`
   flex: 1;
   position: relative;
   width: 50%;
+  overflow: auto;
 `;
 
 const ColumnContent = styled.div`
@@ -82,7 +83,7 @@ const Summary = ({session, recordSession, clearSession, history}) => {
           <ColumnContent>
             <h4>Summary</h4>
             <p>Word Count: {wordCount}</p>
-            <p>Session Length: 5 min.</p>
+            {/*<p>Session Length: 5 min.</p>*/}
 
 
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>
