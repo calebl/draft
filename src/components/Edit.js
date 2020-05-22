@@ -6,61 +6,66 @@ import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} fro
 import PropTypes from "prop-types";
 import TextEditor from "./TextEditor";
 
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: start;
+`;
+
 const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
   overflow: auto;
+  max-width: 700px;
+  height: 60%;
+  
+  trix-toolbar {
+    opacity: 0;
+    transition: all 0.2s;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
 
   trix-editor {
     text-align: left;
     flex: 1;
     height: 100%;
     overflow: auto;
+    
+    border: 0;
   }
-`;
-
-const SaveButton = styled.button`
-  ${ButtonStyles}
-  
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  width: 80px;
 `;
 
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
+  
+  border: 0;
 `;
 
 const Edit = ({text, updateSession}) => {
-  const [content, setContent] = useState(text);
-  const [saveText, setSaveText] = useState('Save');
-
-  const saveUpdates = ()=>{
-    updateSession(content);
-
-    setSaveText("Saved!");
-    setTimeout(()=>{
-      setSaveText('Save')
-    }, 1000);
-  };
 
   const updateContent = (newContent) => {
-    setContent(newContent)
+    updateSession(newContent);
   };
 
   return (
     <Container>
       <HeaderContainer>
         <Title>Edit</Title>
-        <HeaderLink to='/summary'>{'View Summary'}</HeaderLink>
+        <div>
+          <HeaderLink to='/compose'>{'Write'}</HeaderLink>
+          <HeaderLink to='/summary'>{'View Summary'}</HeaderLink>
+        </div>
       </HeaderContainer>
 
-      <EditContainer>
-        <TextEditor content={content} textChanged={updateContent} />
-      </EditContainer>
-      <SaveButton onClick={saveUpdates}>{saveText}</SaveButton>
+      <Row>
+        <EditContainer>
+          <TextEditor content={text} textChanged={updateContent}/>
+        </EditContainer>
+      </Row>
 
     </Container>
   )

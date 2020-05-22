@@ -18,6 +18,7 @@ const ViewContainer = styled.div`
 const Column = styled.div`
   flex: 1;
   position: relative;
+  width: 50%;
 `;
 
 const ColumnContent = styled.div`
@@ -26,16 +27,12 @@ const ColumnContent = styled.div`
 
 const TextColumn = styled.div`
   padding: 20px;
-  background-color: lightgray;
+  background-color: #EFEFEF;
   overflow: auto;
   height: 100%;
-  
-  white-space: pre;
-  
-  div {
-    white-space: pre;
-  }
-`
+  text-align: left;
+  border-radius: ${props => props.theme.borderRadius};
+`;
 
 const SummaryColumn = styled.div`
   flex: 1;
@@ -87,7 +84,11 @@ const Summary = ({session, recordSession, clearSession, history}) => {
             <p>Word Count: {wordCount}</p>
             <p>Session Length: 5 min.</p>
 
+
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>
+
+            <p><Link to={"/compose"}>Write</Link></p>
+            <p><Link to={"/edit"}>Edit</Link></p>
           </ColumnContent>
         </SummaryColumn>
       </ViewContainer>

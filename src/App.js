@@ -1,10 +1,18 @@
 import React, {useEffect} from 'react';
 import './App.scss';
+import {createGlobalStyle} from "styled-components";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import ComposeContainer from "./containers/ComposeContainer";
 import EditContainer from "./containers/EditContainer";
 import HomeContainer from "./containers/HomeContainer";
 import SummaryContainer from "./containers/SummaryContainer";
+
+const GlobalStyle = createGlobalStyle`
+  a {
+    color: ${props => props.theme.purple};
+    font-weight: bold;
+  }
+`;
 
 const routes = [
   {
@@ -40,6 +48,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <GlobalStyle/>
       <Router>
         <Switch>
           {routes.map((route, i) => {

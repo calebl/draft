@@ -27,13 +27,14 @@ const Column = styled.div`
 
 const ColumnContent = styled.div`
   padding: 20px;
+  
+  color: gray;
 `;
 
 const TextColumn = styled(Column)`
   text-align: left;
   line-height: 18px;
   font-size: 14px;
-  background: lightgray;
   
   overflow: auto;
 `;
@@ -66,6 +67,12 @@ const EnterButton = styled.button`
   border: 0;
 `;
 
+const DisappearingHeader = styled(HeaderContainer)`
+  visibility: hidden;
+  
+  background:
+`
+
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
 `;
@@ -86,6 +93,10 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
       messagesEndRef.current.scrollIntoView();
     }
   };
+
+  useEffect(()=>{
+
+  },[]);
 
   useEffect(scrollToBottom, [content]);
 
@@ -129,7 +140,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
           <Composer onKeyPress={listenForEnter} tabIndex={0}>
             <TextEditor content={content} textChanged={updateContent} />
           </Composer>
-          <EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>
+          {/*<EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>*/}
         </Column>
       </ComposerContainer>
     </ComposeContainer>
