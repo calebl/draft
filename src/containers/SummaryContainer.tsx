@@ -1,4 +1,3 @@
-import React from "react"
 import {connect} from "react-redux";
 import {updateSession} from "../actions/session";
 import {recordSession} from "../actions/sessions";

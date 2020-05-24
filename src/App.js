@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {createGlobalStyle} from "styled-components";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
@@ -6,6 +6,8 @@ import ComposeContainer from "./containers/ComposeContainer";
 import EditContainer from "./containers/EditContainer";
 import HomeContainer from "./containers/HomeContainer";
 import SummaryContainer from "./containers/SummaryContainer";
+
+import {connect} from "react-redux"
 
 const GlobalStyle = createGlobalStyle`
   a {
@@ -41,13 +43,30 @@ const routes = [
   }
 ];
 
-const App = () => {
-  useEffect(()=>{
+const App = props => {
+  const [fileLoaded, setFileLoaded] = useState(false);
 
-  },[]);
+  useEffect(() => {
+    const ipc = window.require('electron').ipcRenderer;
+
+    ipc.on("getProjectState", (event, data) => {
+      event.sender.send("saveProjectState", props.state)
+    });
+
+    ipc.on('projectData', (event, data) => {
+      console.log("file data received");
+
+      //TODO: load file data into state
+    });
+
+    ipc.on('projectSaved', (event => {
+      alert('file saved!')
+    }));
+  },[props]);
 
   return (
     <div className="App">
+      <div>File Loaded: {fileLoaded}</div>
       <GlobalStyle/>
       <Router>
         <Switch>
@@ -63,6 +82,10 @@ const App = () => {
       </Router>
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  state
+});
+
+export default connect(mapStateToProps)(App);

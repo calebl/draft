@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 
+const ipc = require("electron").ipcMain;
 const path = require('path')
 const url = require('url')
 
@@ -26,6 +27,28 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null
   })
+
+  const menu = Menu.getApplicationMenu();
+  menu.insert(1, new MenuItem({
+    label: "Project",
+    after: "write",
+    submenu: [
+      {
+        label: "Open",
+        click: () => {
+          mainWindow.webContents.send('openProject');
+        }
+      },
+      {
+        label: "Save",
+        click: () => {
+          mainWindow.webContents.send('getProjectState')
+        }
+      }
+    ]
+  }));
+
+  Menu.setApplicationMenu(menu);
 }
 
 app.on('ready', createWindow)
@@ -41,3 +64,73 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+
+ipc.on('saveProject', (event) => {
+  event.sender.send('getProjectState');
+})
+
+ipc.on('saveProjectState', (event, data) => {
+  const {dialog} = require('electron');
+  const fs = require('fs');
+
+  dialog.showSaveDialog(mainWindow, {filters: [{extensions: [".write"]}]}).then(result => {
+    if(result.canceled) return;
+
+    if(result.filePath === undefined){
+      console.log("No path selected")
+    } else {
+      const jsonContents = JSON.stringify(data);
+
+      saveFile(`${result.filePath}.write`, jsonContents);
+    }
+  });
+
+  const saveFile = (filepath, data) => {
+    fs.writeFile(filepath, data, (err) => {
+      if(err){
+        alert("An error occurred reading the file :" + err.message)
+        return
+      }
+
+      event.sender.send('fileSaved', filepath)
+    })
+  };
+})
+
+ipc.on('openProject', (event, path) => {
+  const {dialog} = require('electron');
+  const fs = require('fs');
+  const openDialogOptions = {
+    properties: ['openFile'],
+    filters: [{extensions: [".write"]}]
+  };
+
+  dialog.showOpenDialog(mainWindow, openDialogOptions).then( result => {
+    if(result.canceled) return;
+
+    console.log("loading file: " + result.filePaths);
+
+    // fileNames is an array that contains all the selected
+    if(result.filePaths === undefined) {
+      console.log("No file selected");
+
+    } else {
+      readFile(result.filePaths[0]);
+    }
+
+  });
+
+  function readFile(filepath) {
+    fs.readFile(filepath, 'utf-8', (err, data) => {
+
+      if(err){
+        alert("An error occurred reading the file :" + err.message)
+        return
+      }
+
+      // handle the file content
+      event.sender.send('projectData', data)
+    })
+  }
+});

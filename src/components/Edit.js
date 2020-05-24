@@ -18,7 +18,7 @@ const EditContainer = styled.div`
   flex: 1;
   overflow: auto;
   max-width: 700px;
-  height: 60%;
+  height: 50vh;
   
   trix-toolbar {
     opacity: 0;

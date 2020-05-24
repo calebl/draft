@@ -66,12 +66,20 @@
     "electron-builder": "^22.6.0"
   },
   "build": {
-    "appId": "com.blue-hat.write",
+    "appId": "com.conflictandcuriosity.write",
     "win": {
       "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
     },
     "directories": {
       "buildResources": "public"
-    }
+    },
+    "fileAssociations": [
+      {
+        "ext": "write",
+        "name": "Write",
+        "role": "Editor",
+        "perMachine": true
+      }
+    ]
   }
 }

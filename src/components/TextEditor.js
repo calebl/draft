@@ -1,6 +1,5 @@
 import Trix from "trix";
 import React, {useEffect} from "react";
-import styled, {createGlobalStyle} from "styled-components";
 import PropTypes from "prop-types"
 
 const TextEditor = ({content, textChanged}) => {
@@ -18,7 +17,7 @@ const TextEditor = ({content, textChanged}) => {
     };
 
     trixInput.current.addEventListener("trix-change", listener);
-  }, []);
+  });
 
   return (
     <React.Fragment>
