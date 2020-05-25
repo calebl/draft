@@ -1,6 +1,8 @@
 import sessionsReducer from './sessions'
 import {
-  ActionType
+  ActionType,
+  recordSession,
+  loadSessions
 } from "../actions/sessions";
 
 const defaultState = {
@@ -14,17 +16,32 @@ describe("Sessions reducer", () => {
   });
 
   it("Adds a session when RECORD_SESSION is called", ()=>{
-    const result = sessionsReducer(defaultState, {
-      type: ActionType.RECORD_SESSION,
-      session: {
+    const result = sessionsReducer(defaultState, recordSession({
         text: 'new text',
-        wordCount: 2,
-        time: 4
-      }
-    });
+        wordCount: 2
+      })
+    );
 
     expect(result).toHaveProperty("sessions.0.text", 'new text');
     expect(result).toHaveProperty("sessions.0.wordCount", 2);
-    expect(result).toHaveProperty("sessions.0.time", 4);
   });
+
+  it("Loads sessions when LOAD_SESSION is called", ()=>{
+    const result = sessionsReducer(defaultState, loadSessions([
+      {
+        text: 'new text',
+        wordCount: 2
+      },
+      {
+        text: 'new text 2',
+        wordCount: 3
+      }
+    ]))
+
+    expect(result).toHaveProperty("sessions.0.text", 'new text');
+    expect(result).toHaveProperty("sessions.0.wordCount", 2);
+
+    expect(result).toHaveProperty("sessions.1.text", 'new text 2');
+    expect(result).toHaveProperty("sessions.1.wordCount", 3);
+  })
 });

@@ -82,7 +82,12 @@ ipc.on('saveProjectState', (event, data) => {
     } else {
       const jsonContents = JSON.stringify(data);
 
-      saveFile(`${result.filePath}.write`, jsonContents);
+      let path = result.filePath;
+      if(path.match(/\.write$/)=== null){
+        path = `${result.filePath}.write`
+      }
+
+      saveFile(path, jsonContents);
     }
   });
 

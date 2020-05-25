@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
@@ -58,15 +58,23 @@ const TitleLarge = styled(Title)`
   margin-bottom: 20px;
 `;
 
-const Home = ({text, history}) => {
+const Home = ({text, sessions}) => {
+  debugger
+
+  const actionText = (text !== '') ? 'Resume Session' : 'Start New Session';
+
   return (
+
     <HomeContainer>
       <div>
         <TitleLarge>Write</TitleLarge>
         <By>by <StyledLogo src={CuriosityAndConflictLogoDark} alt={"Curiosity & Conflict"} /></By>
       </div>
 
-      <StyledLink to="/compose">Start New Session</StyledLink>
+      <div>
+        <StyledLink to="/compose">{actionText}</StyledLink>
+        {`Total sessions: ${sessions.length}`}
+      </div>
     </HomeContainer>
   )
 };

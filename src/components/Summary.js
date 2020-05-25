@@ -63,6 +63,8 @@ const Summary = ({session, recordSession, clearSession, history}) => {
 
   const saveSession = () => {
     recordSession(session);
+    clearSession();
+    history.push("/")
   };
 
   let wordCount = countWords(session.text);
@@ -83,7 +85,6 @@ const Summary = ({session, recordSession, clearSession, history}) => {
           <ColumnContent>
             <h4>Summary</h4>
             <p>Word Count: {wordCount}</p>
-            {/*<p>Session Length: 5 min.</p>*/}
 
 
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>

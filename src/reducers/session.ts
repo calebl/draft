@@ -5,9 +5,7 @@ interface SessionAction extends Session {
 }
 
 const initialState : Session = {
-  text: '',
-  wordCount: 0,
-  time: 0
+  text: ''
 };
 
 const session = (state = initialState, action : SessionAction) => {
@@ -24,6 +22,11 @@ const session = (state = initialState, action : SessionAction) => {
 
     case ActionType.CLEAR_SESSION:
       return Object.assign({}, state, initialState);
+
+    case ActionType.LOAD_SESSION:
+      return Object.assign({}, state, {
+        text: action.text
+      });
 
     default:
       return state;

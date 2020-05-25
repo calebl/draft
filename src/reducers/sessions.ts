@@ -1,10 +1,9 @@
-import {
-  ActionType
-} from "../actions/sessions";
+import {ActionType} from "../actions/sessions";
 
-interface SessionsAction {
+interface SessionsAction{
   type: ActionType;
-  session: Session;
+  session?: Session;
+  sessions?: Session[];
 }
 
 interface StateType {
@@ -21,6 +20,11 @@ const sessions = (state = initialState, action : SessionsAction) => {
       return Object.assign({}, state, {
         sessions: [...state.sessions, action.session]
       });
+
+    case ActionType.LOAD_SESSIONS:
+      return Object.assign({}, state, {
+        sessions: action.sessions
+      })
     default:
       return state;
   }
