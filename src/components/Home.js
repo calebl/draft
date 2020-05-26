@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { withRouter, Link } from "react-router-dom";
@@ -59,8 +59,6 @@ const TitleLarge = styled(Title)`
 `;
 
 const Home = ({text, sessions}) => {
-  debugger
-
   const actionText = (text !== '') ? 'Resume Session' : 'Start New Session';
 
   return (

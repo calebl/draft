@@ -71,9 +71,6 @@ const Summary = ({session, recordSession, clearSession, history}) => {
 
   return (
     <Container>
-      <HeaderContainer>
-        <Title>Summary</Title>
-      </HeaderContainer>
       <ViewContainer>
         <Column>
           <TextColumn>
@@ -88,7 +85,7 @@ const Summary = ({session, recordSession, clearSession, history}) => {
 
 
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>
-
+            <p><Link to={"/"}>Pause Session</Link></p>
             <p><Link to={"/compose"}>Write</Link></p>
             <p><Link to={"/edit"}>Edit</Link></p>
           </ColumnContent>

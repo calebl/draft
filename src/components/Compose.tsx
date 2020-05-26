@@ -70,6 +70,8 @@ const DisappearingHeader = styled(HeaderContainer)`
 
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
+  
+  margin-right: 5px;
 `;
 
 interface PropTypes extends RouteComponentProps {
@@ -115,8 +117,18 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Title><Link to={"/"}>Compose</Link></Title>
-        <HeaderLink to='/summary'>Done</HeaderLink>
+        <Title>Compose</Title>
+        <div>
+          {text === '' ? (
+            <HeaderLink to='/'>Cancel</HeaderLink>
+          ):(
+            <React.Fragment>
+              <HeaderLink to='/'>Pause</HeaderLink>
+              <HeaderLink to='/summary'>Done</HeaderLink>
+            </React.Fragment>
+          )}
+
+        </div>
       </HeaderContainer>
       <ViewContainer>
         <TextColumn>
