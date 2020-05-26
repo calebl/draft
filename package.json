@@ -14,6 +14,7 @@
     "electron": "^8.2.5",
     "electron-store": "^5.1.1",
     "fs-jetpack": "^2.4.0",
+    "global": "^4.4.0",
     "html-to-react": "^1.4.2",
     "jsdom": "^16.2.2",
     "node-sass": "^4.14.1",
@@ -63,7 +64,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "electron-builder": "^22.6.0"
+    "electron-builder": "^22.6.1"
   },
   "build": {
     "appId": "com.conflictandcuriosity.write",
