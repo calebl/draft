@@ -1,10 +1,10 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 
 const ipc = require("electron").ipcMain;
-const path = require('path')
-const url = require('url')
+const path = require('path');
+const url = require('url');
 
-let mainWindow
+let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -31,7 +31,6 @@ function createWindow() {
   const menu = Menu.getApplicationMenu();
   menu.insert(1, new MenuItem({
     label: "Project",
-    after: "write",
     submenu: [
       {
         label: "Open",
