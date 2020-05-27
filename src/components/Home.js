@@ -65,7 +65,7 @@ const Home = ({text, sessions}) => {
 
     <HomeContainer>
       <div>
-        <TitleLarge>Write</TitleLarge>
+        <TitleLarge>Draft</TitleLarge>
         <By>by <StyledLogo src={CuriosityAndConflictLogoDark} alt={"Curiosity & Conflict"} /></By>
       </div>
 

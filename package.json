@@ -1,19 +1,12 @@
 {
-  "name": "write",
-  "version": "0.1.0",
+  "name": "draft",
+  "version": "0.1.4",
+  "author": {
+    "name": "Caleb LeNoir"
+  },
+  "description": "Application for creating rough drafts",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jsdom": "^16.2.3",
-    "@types/react-redux": "^7.1.8",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.0",
-    "debounce": "^1.2.0",
-    "electron": "^8.2.5",
-    "electron-store": "^5.1.1",
-    "fs-jetpack": "^2.4.0",
     "global": "^4.4.0",
     "html-to-react": "^1.4.2",
     "jsdom": "^16.2.2",
@@ -26,10 +19,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-persist": "^6.0.0",
-    "redux-persist-electron-storage": "^2.1.0",
     "styled-components": "^5.1.0",
-    "trix": "^1.2.3",
-    "typescript": "^3.9.2"
+    "trix": "^1.2.3"
   },
   "scripts": {
     "start": "nf start -p 3000",
@@ -39,12 +30,12 @@
     "electron": "electron .",
     "electron-start": "node src/start-react",
     "react-start": "BROWSER=none react-scripts start",
-    "pack": "build --dir",
-    "dist": "npm run build && build",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build && electron-builder",
     "postinstall": "install-app-deps"
   },
   "homepage": "./",
-  "main": "src/start.js",
+  "main": "public/electron.js",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -61,25 +52,33 @@
     ]
   },
   "devDependencies": {
+    "electron": "^8.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "electron-builder": "^22.6.1"
+    "electron-builder": "^22.6.1",
+    "typescript": "^3.9.2",
+    "@types/jsdom": "^16.2.3",
+    "@types/react-redux": "^7.1.8",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.0"
   },
   "build": {
     "appId": "com.conflictandcuriosity.write",
     "win": {
-      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+      "icon": "icon.png"
+    },
+    "mac": {
+      "icon": "icon.png"
     },
     "directories": {
       "buildResources": "public"
     },
     "fileAssociations": [
       {
-        "ext": "write",
-        "name": "Write",
-        "role": "Editor",
-        "perMachine": true
+        "ext": "draft",
+        "name": "Draft",
+        "role": "Editor"
       }
     ]
   }
