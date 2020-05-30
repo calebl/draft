@@ -1,9 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
-import { withRouter, Link } from "react-router-dom";
-import {Title} from "../elements";
-import CuriosityAndConflictLogoDark from "../assets/CuriosityAndConflictLogoDark.png"
+import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -11,7 +8,7 @@ const HomeContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   height: 100%;
-  background: ${props => props.theme.lightgray};
+  background: ${props => props.theme.white ?? 'white'};
   
   position: absolute;
   top: 0;
@@ -21,8 +18,8 @@ const HomeContainer = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  border: 2px solid ${props => props.theme.purple};
-  color: ${props => props.theme.purple};
+  border: 2px solid ${props => props.theme.black};
+  color: ${props => props.theme.black};
   font-weight: bold;
   
   border-radius: 5px;
@@ -37,8 +34,8 @@ const StyledLink = styled(Link)`
   &:hover, &:active {
     text-decoration: none;
     
-    color: ${props => props.theme.lightgray};
-    background-color: ${props => props.theme.purple};
+    color: ${props => props.theme.black};
+    background-color: ${props => props.theme.lightgray};
   }
 `;
 
@@ -49,24 +46,23 @@ const By = styled.small`
 `;
 
 const StyledLogo = styled.img`
-  width: 175px;
-  display: inline-block;
+  width: 160px;;
 `;
 
-const TitleLarge = styled(Title)`
-  font-size: 48px;
-  margin-bottom: 20px;
-`;
+interface PropTypes extends RouteComponentProps {
+  text?: string,
+  sessions: Session[]
+}
 
-const Home = ({text, sessions}) => {
+const Home = ({text, sessions} : PropTypes) => {
   const actionText = (text !== '') ? 'Resume Session' : 'Start New Session';
 
   return (
 
     <HomeContainer>
       <div>
-        <TitleLarge>Draft</TitleLarge>
-        <By>by <StyledLogo src={CuriosityAndConflictLogoDark} alt={"Curiosity & Conflict"} /></By>
+        <StyledLogo src={"/images/logo-transparent.png"}/>
+        <By>by Curiosity & Conflict</By>
       </div>
 
       <div>
@@ -75,11 +71,6 @@ const Home = ({text, sessions}) => {
       </div>
     </HomeContainer>
   )
-};
-
-Home.propTypes = {
-  text: PropTypes.string,
-  history: PropTypes.object.isRequired
 };
 
 export default withRouter(Home);

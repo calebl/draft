@@ -1,7 +1,7 @@
 export const theme = {
   white: 'white',
   blue: 'blue',
-  purple: 'purple',
+  purple: 'black',
   lightgray: 'lightgray',
 
   borderRadius: '5px'

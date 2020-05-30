@@ -3,7 +3,7 @@ import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
-import {Container, HeaderContainer, Title, HeaderActionStyles, ButtonStyles} from "../elements";
+import {Container, HeaderContainer, Title, HeaderActionStyles} from "../elements";
 import TextEditor from "./TextEditor";
 
 const ComposeContainer = styled(Container)`
@@ -29,6 +29,7 @@ const ColumnContent = styled.div`
   padding: 20px;
   color: gray;
   font-size: 14px;
+  width: 100%;
 `;
 
 const TextColumn = styled(Column)`
@@ -62,12 +63,6 @@ const ComposerContainer = styled.div`
   justify-content: center;
 `;
 
-const DisappearingHeader = styled(HeaderContainer)`
-  visibility: hidden;
-  
-  background:
-`
-
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
   
@@ -84,6 +79,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
   const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
   const [content, setContent] = useState('');
+  const [textContent, setTextContent] = useState('');
 
   const scrollToBottom = () => {
     if (messagesEndRef.current?.scrollIntoView) {
@@ -100,16 +96,26 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
     }
   };
 
+  const clearContent = () => {
+    setContent('');
+    setTextContent('');
+  };
+
   const addText = () => {
     if (content !== '') {
-      addToSession(content);
-      setContent('');
+      if(textContent === '---'){
+        addToSession("<br/><hr/><br/>")
+      } else {
+        addToSession(content);
+      }
+      clearContent();
     }
   };
 
-  const updateContent = (newContent:string) => {
-    setContent(newContent);
-  }
+  const updateContent = (contentAsHtml:string, contentAsText:string) => {
+    setContent(contentAsHtml);
+    setTextContent(contentAsText);
+  };
 
   const viewText = htmlParser.parse(text ?? '');
 

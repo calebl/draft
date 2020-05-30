@@ -29,16 +29,16 @@ export const Title = styled.h3`
 `;
 
 export const HeaderActionStyles = css`
-  color: ${props => props.theme.purple};
-  border: 1px solid ${props => props.theme.purple};
+  color: ${props => props.theme.black};
+  border: 1px solid ${props => props.theme.black};
   background: none;
   border-radius: ${props => props.theme.borderRadius};
   padding: 5px 10px;
   font-weight: bold;
   
   &:hover {
-    color: ${props => props.theme.white};
-    background: ${props => props.theme.purple};
+    color: ${props => props.theme.black};
+    background: ${props => props.theme.lightgray};
   }
 `;
 

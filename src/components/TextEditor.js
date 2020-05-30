@@ -13,7 +13,7 @@ const TextEditor = ({content, textChanged}) => {
 
   useEffect(() => {
     const listener = event => {
-      textChanged(event.target?.innerHTML);
+      textChanged(event.target?.innerHTML, event.target?.innerText);
     };
 
     trixInput.current.addEventListener("trix-change", listener);
