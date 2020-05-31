@@ -68,7 +68,7 @@ const Home = ({text, sessions} : PropTypes) => {
 
       <div>
         <StyledLink to="/compose">{actionText}</StyledLink>
-        {`Total sessions: ${sessions.length}`}
+        {/*{`Total sessions: ${sessions.length}`}*/}
       </div>
     </HomeContainer>
   )
