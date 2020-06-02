@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import DraftLogo from '../assets/LogoImage';
+import DraftLogo from '../assets/logo.png';
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 
 const HomeContainer = styled.div`
@@ -46,7 +46,7 @@ const By = styled.small`
   align-items: center;
 `;
 
-const StyledLogo = styled(DraftLogo)`
+const StyledLogo = styled.img`
   width: 160px;;
 `;
 
@@ -62,7 +62,7 @@ const Home = ({text, sessions} : PropTypes) => {
 
     <HomeContainer>
       <div>
-        <StyledLogo/>
+        <StyledLogo src={DraftLogo}/>
         <By>by Curiosity & Conflict</By>
       </div>
 
