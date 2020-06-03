@@ -9,6 +9,7 @@
   "dependencies": {
     "@babel/core": "7.9.0",
     "@svgr/webpack": "4.3.3",
+    "@types/react-copy-to-clipboard": "^4.3.0",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
     "babel-eslint": "10.1.0",
@@ -52,6 +53,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
+    "react-copy-to-clipboard": "^5.0.2",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
@@ -103,16 +105,16 @@
     ]
   },
   "devDependencies": {
-    "electron": "^8.2.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "electron-builder": "^22.6.1",
-    "typescript": "^3.9.2",
     "@types/jsdom": "^16.2.3",
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.0"
+    "@types/styled-components": "^5.1.0",
+    "electron": "^8.2.5",
+    "electron-builder": "^22.6.1",
+    "typescript": "^3.9.2"
   },
   "build": {
     "appId": "com.conflictandcuriosity.write",

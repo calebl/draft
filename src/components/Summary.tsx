@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
 import {Parser} from "html-to-react";
-import {withRouter, Link} from "react-router-dom";
+import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {countWords} from "../utils/counter";
+import CopyToClipboard from 'react-copy-to-clipboard';
 
-import {Container, HeaderActionStyles, HeaderContainer, Title} from "../elements";
-
+import {Container, HeaderActionStyles} from "../elements";
 
 const ViewContainer = styled.div`
   overflow: hidden;
@@ -33,6 +33,11 @@ const TextColumn = styled.div`
   height: 100%;
   text-align: left;
   border-radius: ${props => props.theme.borderRadius};
+  
+  white-space: pre-wrap;
+  pre {
+    white-space: pre-wrap;
+  }
 `;
 
 const SummaryColumn = styled.div`
@@ -51,11 +56,18 @@ const StyledButton = styled.button`
   
 `;
 
+interface PropTypes extends RouteComponentProps {
+  session: Session;
+  recordSession: (session: Session) => void;
+  clearSession: () => void;
+}
 
 
-const Summary = ({session, recordSession, clearSession, history}) => {
+const Summary = ({session, recordSession, clearSession, history}: PropTypes) => {
   const htmlParser = new Parser();
-  const viewText = htmlParser.parse(session.text);
+  const text = session.text ?? '';
+  const viewText = htmlParser.parse(text);
+  let textComponent = useRef<HTMLDivElement>(null);
 
   useEffect(()=>{
     // record time
@@ -67,22 +79,25 @@ const Summary = ({session, recordSession, clearSession, history}) => {
     history.push("/")
   };
 
-  let wordCount = countWords(session.text);
+  let wordCount = countWords(text);
+
+  debugger
 
   return (
     <Container>
       <ViewContainer>
         <Column>
-          <TextColumn>
-            {viewText}
-          </TextColumn>
+          <CopyToClipboard text={viewText} onCopy={() => console.log("copied")} >
+            <TextColumn>
+              {viewText}
+            </TextColumn>
+          </CopyToClipboard>
         </Column>
 
         <SummaryColumn>
           <ColumnContent>
             <h4>Summary</h4>
             <p>Word Count: {wordCount}</p>
-
 
             <StyledButton onClick={saveSession}>Complete Session</StyledButton>
             <p><Link to={"/"}>Pause</Link></p>

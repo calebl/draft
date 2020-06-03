@@ -7,9 +7,15 @@ export const countWords = (htmlText:string) => {
   let count = 0;
 
   if(document !== null) {
-    const elements= document.getElementsByTagName("div");
-    for(let i=0; i<elements.length; i++){
-      const el = elements[i];
+    let divElements: HTMLCollection= document.getElementsByTagName("div");
+    for(let i=0; i<divElements.length; i++){
+      const el = divElements[i];
+      count += el.textContent?.match(wordMatcher)?.length ?? 0;
+    }
+
+    let preElements: HTMLCollection= document.getElementsByTagName("pre");
+    for(let i=0; i<preElements.length; i++){
+      const el = preElements[i];
       count += el.textContent?.match(wordMatcher)?.length ?? 0;
     }
   }
