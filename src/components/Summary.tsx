@@ -1,9 +1,8 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import {Parser} from "html-to-react";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {countWords} from "../utils/counter";
-import CopyToClipboard from 'react-copy-to-clipboard';
 
 import {Container, HeaderActionStyles} from "../elements";
 
@@ -45,6 +44,7 @@ const SummaryColumn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 
 const StyledButton = styled.button`
@@ -56,6 +56,31 @@ const StyledButton = styled.button`
   
 `;
 
+interface OverlayProps {
+  show: boolean
+}
+
+const CopiedOverlay = styled.div`
+  user-select: none;
+  background: rgba(200,200,200, 0.8);
+  opacity: ${(props:OverlayProps) => props.show ? '1' : '0'};
+  z-index: ${(props:OverlayProps) => props.show ? '1' : '-1'};
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+  
+  h1 {
+    color: rgba(0,0,0,0.6);
+  }
+`;
+
 interface PropTypes extends RouteComponentProps {
   session: Session;
   recordSession: (session: Session) => void;
@@ -64,10 +89,13 @@ interface PropTypes extends RouteComponentProps {
 
 
 const Summary = ({session, recordSession, clearSession, history}: PropTypes) => {
+  const [showCopiedOverlay, setShowCopiedOverlay] = useState(false);
   const htmlParser = new Parser();
   const text = session.text ?? '';
   const viewText = htmlParser.parse(text);
-  let textComponent = useRef<HTMLDivElement>(null);
+  let textComponent:HTMLDivElement|null;
+
+  const COPY_TEXT_OVERLAY_TIMEOUT = 2000;
 
   useEffect(()=>{
     // record time
@@ -79,19 +107,33 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
     history.push("/")
   };
 
-  let wordCount = countWords(text);
+  const copyToClipboard = () => {
+    if(textComponent!==null) {
+      let range = document.createRange();
+      range.selectNode(textComponent);
+      window.getSelection()?.removeAllRanges();
+      window.getSelection()?.addRange(range);
+      document.execCommand("copy");
+      window.getSelection()?.removeAllRanges();
 
-  debugger
+      setShowCopiedOverlay(true);
+      setTimeout(()=>{
+        setShowCopiedOverlay(false);
+      },COPY_TEXT_OVERLAY_TIMEOUT)
+    }
+  };
+
+  let wordCount = countWords(text);
 
   return (
     <Container>
       <ViewContainer>
         <Column>
-          <CopyToClipboard text={viewText} onCopy={() => console.log("copied")} >
-            <TextColumn>
-              {viewText}
-            </TextColumn>
-          </CopyToClipboard>
+          <TextColumn ref={(c) => textComponent = c} onClick={copyToClipboard}>
+            {viewText}
+          </TextColumn>
+          <CopiedOverlay show={showCopiedOverlay}><h1>Copied!</h1></CopiedOverlay>
+
         </Column>
 
         <SummaryColumn>
