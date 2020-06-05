@@ -52,6 +52,7 @@
     "postcss-safe-parser": "4.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-is": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
@@ -75,7 +76,7 @@
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {
-    "start": "nf start -p 3500",
+    "start": "nf start -p 3000",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "electron": "electron .",
@@ -107,6 +108,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@testing-library/dom": "^7.10.0",
     "@types/jsdom": "^16.2.3",
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
@@ -116,7 +118,7 @@
     "typescript": "^3.9.2"
   },
   "build": {
-    "appId": "com.conflictandcuriosity.write",
+    "appId": "com.conflictandcuriosity.draft",
     "win": {
       "icon": "icon.png"
     },
@@ -125,6 +127,10 @@
     },
     "directories": {
       "buildResources": "public"
+    },
+    "files": ["build/**/*"],
+    "extraMetadata": {
+      "main": "build/electron.js"
     },
     "fileAssociations": [
       {
