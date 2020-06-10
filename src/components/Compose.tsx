@@ -123,7 +123,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Title>Compose</Title>
+        <Title data-e2e={'header'}>Compose</Title>
         <div>
           {text === '' ? (
             <HeaderLink to='/'>Cancel</HeaderLink>

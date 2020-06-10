@@ -52,10 +52,10 @@
     "postcss-safe-parser": "4.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-is": "^16.13.1",
     "react-app-polyfill": "^1.0.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
@@ -105,14 +105,15 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^7.10.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@testing-library/dom": "^7.10.0",
     "@types/jsdom": "^16.2.3",
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
+    "cypress": "^4.8.0",
     "electron": "^8.2.5",
     "electron-builder": "^22.6.1",
     "typescript": "^3.9.2"
@@ -128,7 +129,9 @@
     "directories": {
       "buildResources": "public"
     },
-    "files": ["build/**/*"],
+    "files": [
+      "build/**/*"
+    ],
     "extraMetadata": {
       "main": "build/electron.js"
     },
