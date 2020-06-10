@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="12.780000000000001" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2020-06-10T20:40:21" tests="0" file="cypress/integration/writing_session.spec.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="User Writing Sessions" timestamp="2020-06-10T20:40:21" tests="3" failures="0" time="12.780000000000001">
+    <testcase name="User Writing Sessions Can begin from home screen" time="10.525" classname="Can begin from home screen">
+    </testcase>
+    <testcase name="User Writing Sessions Can be paused and resumed" time="1.854" classname="Can be paused and resumed">
+    </testcase>
+    <testcase name="User Writing Sessions Can be completed" time="0.401" classname="Can be completed">
+    </testcase>
+  </testsuite>
+</testsuites>
