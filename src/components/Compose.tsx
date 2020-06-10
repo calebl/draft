@@ -123,14 +123,14 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Title data-e2e={'header'}>Compose</Title>
+        <Title data-cy={'header'}>Compose</Title>
         <div>
           {text === '' ? (
             <HeaderLink to='/'>Cancel</HeaderLink>
           ):(
             <React.Fragment>
-              <HeaderLink to='/'>Pause</HeaderLink>
-              <HeaderLink to='/summary'>Done</HeaderLink>
+              <HeaderLink data-cy={"pause-session"} to='/'>Pause</HeaderLink>
+              <HeaderLink data-cy={"session-done"} to='/summary'>Done</HeaderLink>
             </React.Fragment>
           )}
 
@@ -138,7 +138,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
       </HeaderContainer>
       <ViewContainer>
         <TextColumn>
-          <ColumnContent>
+          <ColumnContent data-cy={"rendered-text"}>
             {viewText}
             <div ref={messagesEndRef}/>
           </ColumnContent>

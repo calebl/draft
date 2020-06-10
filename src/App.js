@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.scss';
 import {createGlobalStyle} from "styled-components";
-import {BrowserRouter as Router, Switch, Route, withRouter} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import {loadSession} from "./actions/session";
 import {loadSessions} from "./actions/sessions";
@@ -49,37 +49,37 @@ const routes = [
 
 const App = props => {
 
-  useEffect(() => {
-    const ipc = window.require('electron').ipcRenderer;
-
-    //receive getProjectState and reply with project state
-    ipc.on("getProjectState", (event) => {
-      event.sender.send("saveProjectState", props.state)
-    });
-
-    ipc.on('openProject', (event) => {
-      event.sender.send('openProject');
-    })
-
-    ipc.on('projectData', (event, data) => {
-      console.log("file data received");
-
-      try {
-        const loadedState = JSON.parse(data);
-        props.loadSession(loadedState.session.text);
-        props.loadSessions(loadedState.sessions.sessions);
-
-      } catch {
-        alert("error loading project")
-      }
-
-      //TODO: load file data into state
-    });
-
-    ipc.on('projectSaved', (event => {
-      alert('file saved!')
-    }));
-  },[props]);
+  // useEffect(() => {
+  //   const ipc = window.require('electron').ipcRenderer;
+  //
+  //   //receive getProjectState and reply with project state
+  //   ipc.on("getProjectState", (event) => {
+  //     event.sender.send("saveProjectState", props.state)
+  //   });
+  //
+  //   ipc.on('openProject', (event) => {
+  //     event.sender.send('openProject');
+  //   })
+  //
+  //   ipc.on('projectData', (event, data) => {
+  //     console.log("file data received");
+  //
+  //     try {
+  //       const loadedState = JSON.parse(data);
+  //       props.loadSession(loadedState.session.text);
+  //       props.loadSessions(loadedState.sessions.sessions);
+  //
+  //     } catch {
+  //       alert("error loading project")
+  //     }
+  //
+  //     //TODO: load file data into state
+  //   });
+  //
+  //   ipc.on('projectSaved', (event => {
+  //     alert('file saved!')
+  //   }));
+  // },[props]);
 
   return (
     <div className="App">

@@ -11,6 +11,16 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add('visitIndex', (options = {}) => {
+  return cy.visit('/', options)
+})
+
+Cypress.Commands.add('typeText', (text, delay=0)=>{
+  cy.get('[data-cy=text-editor]').as('text-editor').type(text, {delay});
+  cy.get('@text-editor').type('{enter}');
+  cy.get('[data-cy=rendered-text]').should('contain', text);
+})
+
 //
 //
 // -- This is a child command --

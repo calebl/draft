@@ -129,7 +129,7 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
     <Container>
       <ViewContainer>
         <Column>
-          <TextColumn ref={(c) => textComponent = c} onClick={copyToClipboard}>
+          <TextColumn data-cy={"text-content"} ref={(c) => textComponent = c} onClick={copyToClipboard}>
             {viewText}
           </TextColumn>
           <CopiedOverlay show={showCopiedOverlay}><h1>Copied!</h1></CopiedOverlay>
@@ -139,9 +139,9 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
         <SummaryColumn>
           <ColumnContent>
             <h4>Summary</h4>
-            <p>Word Count: {wordCount}</p>
+            <p>Word Count: <span data-cy={"word-count"}>{wordCount}</span></p>
 
-            <StyledButton onClick={saveSession}>Complete Session</StyledButton>
+            <StyledButton onClick={saveSession} data-cy={"session-complete"}>Complete Session</StyledButton>
             <p><Link to={"/"}>Pause</Link></p>
             <p><Link to={"/compose"}>Resume</Link></p>
             {/*<p><Link to={"/edit"}>Edit</Link></p>*/}

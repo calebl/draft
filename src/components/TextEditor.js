@@ -22,7 +22,7 @@ const TextEditor = ({content, textChanged}) => {
   return (
     <React.Fragment>
       <input type={"hidden"} id={"trix"} value={content}/>
-      <trix-editor autofocus input="trix" ref={trixInput} data-testid={"compose-editor"}/>
+      <trix-editor data-cy="text-editor" autofocus input="trix" ref={trixInput} data-testid={"compose-editor"}/>
     </React.Fragment>
   )
 };

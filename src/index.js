@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -15,7 +15,7 @@ const {store, persistor} = configureStore();
 
 // persistor.purge(); //remove for persistance
 
-ReactDOM.render(
+const AppContainer =
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -24,9 +24,29 @@ ReactDOM.render(
         </ThemeProvider>
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  </React.StrictMode>
+;
+
+window.App = {
+  start () {
+    render(
+      <React.StrictMode>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ThemeProvider theme={theme}>
+              <App/>
+            </ThemeProvider>
+          </PersistGate>
+        </Provider>
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
+}
+
+window.App.start();
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

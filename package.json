@@ -113,6 +113,7 @@
     "@types/react-redux": "^7.1.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.0",
+    "clipboardy": "^2.3.0",
     "cypress": "^4.8.0",
     "electron": "^8.2.5",
     "electron-builder": "^22.6.1",
