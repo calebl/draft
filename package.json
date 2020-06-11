@@ -1,9 +1,10 @@
 {
   "name": "draft",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": {
     "name": "Caleb LeNoir"
   },
+  "productName": "Draft",
   "description": "Application for creating rough drafts",
   "private": true,
   "dependencies": {
@@ -85,13 +86,12 @@
     "electron": "electron .",
     "electron-start": "node src/start-react",
     "react-start": "BROWSER=none node scripts/start.js",
-    "pack": "electron-builder --dir",
     "clean": "rm -rf dist",
     "dist": "yarn clean && yarn build && electron-builder -m",
     "postinstall": "install-app-deps"
   },
   "homepage": "./",
-  "main": "public/electron.js",
+  "main": "src/main.js",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -137,7 +137,7 @@
       "build/**/*"
     ],
     "extraMetadata": {
-      "main": "build/electron.js"
+      "main": "build/main.js"
     },
     "fileAssociations": [
       {

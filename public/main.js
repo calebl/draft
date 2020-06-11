@@ -1,10 +1,36 @@
-const { app, BrowserWindow, Menu, MenuItem } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 
 const ipc = require("electron").ipcMain;
 const path = require('path');
 const url = require('url');
 
 let mainWindow;
+
+const isMac = process.platform === 'darwin'
+const menuTemplate = [
+  // { role: 'appMenu' }
+  ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      // { type: 'separator' },
+      // { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideothers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  // { role: 'fileMenu' }
+  // {
+  //   label: 'File',
+  //   submenu: [
+  //     isMac ? { role: 'close' } : { role: 'quit' }
+  //   ]
+  // }
+];
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -28,29 +54,30 @@ function createWindow() {
     mainWindow = null
   })
 
-  const menu = Menu.getApplicationMenu();
-  menu.insert(1, new MenuItem({
-    label: "Project",
-    submenu: [
-      {
-        label: "Open",
-        click: () => {
-          mainWindow.webContents.send('openProject');
-        }
-      },
-      {
-        label: "Save",
-        click: () => {
-          mainWindow.webContents.send('getProjectState')
-        }
-      }
-    ]
-  }));
+  // const menu = Menu.getApplicationMenu();
+  // menu.insert(1, new MenuItem({
+  //   label: "Project",
+  //   submenu: [
+  //     {
+  //       label: "Open",
+  //       click: () => {
+  //         mainWindow.webContents.send('openProject');
+  //       }
+  //     },
+  //     {
+  //       label: "Save",
+  //       click: () => {
+  //         mainWindow.webContents.send('getProjectState')
+  //       }
+  //     }
+  //   ]
+  // }));
 
+  const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
 }
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
