@@ -103,11 +103,11 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
 
   const addText = () => {
     if (content !== '') {
-      if(textContent === '---'){
-        addToSession("<br/><hr/><br/>")
-      } else {
+      // if(textContent === '---'){
+      //   addToSession("<br/><hr/><br/>")
+      // } else {
         addToSession(content);
-      }
+      // }
       clearContent();
     }
   };

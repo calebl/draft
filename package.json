@@ -1,6 +1,6 @@
 {
   "name": "draft",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "author": {
     "name": "Caleb LeNoir"
   },
@@ -91,7 +91,7 @@
     "postinstall": "install-app-deps"
   },
   "homepage": "./",
-  "main": "src/main.js",
+  "main": "public/main.js",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -129,7 +129,7 @@
     },
     "mac": {
       "icon": "icon.icns",
-      "target": "pkg",
+      "target": "dmg",
       "type": "distribution"
     },
     "directories": {
