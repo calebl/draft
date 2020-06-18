@@ -1,6 +1,6 @@
 {
   "name": "draft",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "author": {
     "name": "Caleb LeNoir"
   },
@@ -119,16 +119,18 @@
     "clipboardy": "^2.3.0",
     "cypress": "^4.8.0",
     "electron": "^8.2.5",
-    "electron-builder": "^22.6.1",
+    "electron-builder": "^22.7.0",
     "typescript": "^3.9.2"
   },
   "build": {
-    "appId": "com.conflictandcuriosity.draft",
+    "appId": "com.curiosityandconflict.draft",
     "win": {
-      "icon": "icon.png"
+      "icon": "icon.icns"
     },
     "mac": {
-      "icon": "icon.png"
+      "icon": "icon.icns",
+      "target": "pkg",
+      "type": "distribution"
     },
     "directories": {
       "buildResources": "public"
