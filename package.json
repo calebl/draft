@@ -1,6 +1,6 @@
 {
   "name": "draft",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": {
     "name": "Caleb LeNoir"
   },
@@ -120,6 +120,7 @@
     "cypress": "^4.8.0",
     "electron": "^8.2.5",
     "electron-builder": "^22.7.0",
+    "electron-notarize": "^1.0.0",
     "typescript": "^3.9.2"
   },
   "build": {
@@ -130,7 +131,10 @@
     "mac": {
       "icon": "icon.icns",
       "target": "dmg",
-      "type": "distribution"
+      "type": "distribution",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
     },
     "directories": {
       "buildResources": "public"
@@ -147,7 +151,8 @@
         "name": "Draft",
         "role": "Editor"
       }
-    ]
+    ],
+    "afterSign": "scripts/notarize.js"
   },
   "jest": {
     "roots": [

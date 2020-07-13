@@ -25,4 +25,5 @@ yarn-error.log*
 
 .idea
 test-results.xml
+.env
 
