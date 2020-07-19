@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {Container, HeaderContainer, Title, HeaderActionStyles} from "../elements";
 import TextEditor from "./TextEditor";
+import {countWords} from "../utils/counter";
 
 const ComposeContainer = styled(Container)`
   display: flex;
@@ -58,6 +59,19 @@ const Composer = styled.div`
   
 `;
 
+const WordCount = styled.div`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: lightgray;
+  font-size: 14px;
+  padding-left: 30px;
+  
+  &:hover {
+    color: gray;
+  }
+`;
+
 const ComposerContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -71,15 +85,13 @@ const HeaderLink = styled(Link)`
 
 interface PropTypes extends RouteComponentProps {
   text?: string,
-  addToSession: (text : string) => void,
-  recordSession: (session : Session) => void
+  addToSession: (text : string) => void
 }
 
-const Compose = ({text, addToSession, recordSession} : PropTypes) => {
+const Compose = ({text, addToSession} : PropTypes) => {
   const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
   const [content, setContent] = useState('');
-  const [textContent, setTextContent] = useState('');
 
   const scrollToBottom = () => {
     if (messagesEndRef.current?.scrollIntoView) {
@@ -98,27 +110,21 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
 
   const clearContent = () => {
     setContent('');
-    setTextContent('');
   };
 
   const addText = () => {
     if (content !== '') {
-      // if(textContent === '---'){
-      //   addToSession("<br/><hr/><br/>")
-      // } else {
-        addToSession(content);
-      // }
+      addToSession(content);
       clearContent();
     }
   };
 
-  const updateContent = (contentAsHtml:string, contentAsText:string) => {
+  const updateContent = (contentAsHtml:string) => {
     setContent(contentAsHtml);
-    setTextContent(contentAsText);
   };
 
   const viewText = htmlParser.parse(text ?? '');
-
+  const wordCount = (text !== undefined ? countWords(text) : 0) + (content === "" ? 0 : content.split(' ').length);
 
   return (
     <ComposeContainer>
@@ -152,6 +158,7 @@ const Compose = ({text, addToSession, recordSession} : PropTypes) => {
           {/*<EnterButton onClick={addText} data-testid={'add-button'}>Add</EnterButton>*/}
         </Column>
       </ComposerContainer>
+      <WordCount data-cy={"word-count"}>{wordCount}</WordCount>
     </ComposeContainer>
   )
 };

@@ -31,4 +31,12 @@ Mr. Bennet replied that he had not.</pre><div><!--block--><br></div><br/><div><!
     expect(result).toBe(214)
   })
 
+  it("return zero for empty string", () => {
+    const htmlText = "";
+
+    let result = countWords(htmlText);
+
+    expect(result).toBe(0);
+  })
+
 })

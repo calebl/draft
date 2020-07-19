@@ -15,18 +15,6 @@ const {store, persistor} = configureStore();
 
 // persistor.purge(); //remove for persistance
 
-const AppContainer =
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <App/>
-        </ThemeProvider>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
-;
-
 window.App = {
   start () {
     render(
@@ -42,7 +30,7 @@ window.App = {
       document.getElementById('root')
     );
   }
-}
+};
 
 window.App.start();
 
