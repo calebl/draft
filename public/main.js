@@ -4,6 +4,8 @@ const ipc = require("electron").ipcMain;
 const path = require('path');
 const url = require('url');
 
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 let mainWindow;
 
 const isMac = process.platform === 'darwin'
@@ -41,8 +43,6 @@ function createWindow() {
     }
   })
 
-  mainWindow.webContents.openDevTools();
-
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
     url.format({
@@ -77,6 +77,22 @@ function createWindow() {
 
   const menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
+
+  if(isDevelopment) {
+    mainWindow.webContents.openDevTools();
+
+    // add inspect element on right click menu
+    mainWindow.webContents.on('context-menu', (e, props) => {
+      Menu.buildFromTemplate([
+        {
+          label: 'Inspect element',
+          click() {
+            mainWindow.inspectElement(props.x, props.y);
+          },
+        },
+      ]).popup(mainWindow);
+    });
+  }
 }
 
 app.on('ready', createWindow);
