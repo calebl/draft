@@ -3,7 +3,7 @@ import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
-import {Container, HeaderContainer, Title, HeaderActionStyles} from "../elements";
+import {Container, HeaderContainer, Title, HeaderActionStyles, HeaderActions} from "../elements";
 import TextEditor from "./TextEditor";
 import {countWords} from "../utils/counter";
 
@@ -129,8 +129,8 @@ const Compose = ({text, addToSession} : PropTypes) => {
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Title data-cy={'header'}>Compose</Title>
-        <div>
+        <Title data-cy={'header'}></Title>
+        <HeaderActions>
           {text === '' ? (
             <HeaderLink to='/'>Cancel</HeaderLink>
           ):(
@@ -140,7 +140,7 @@ const Compose = ({text, addToSession} : PropTypes) => {
             </React.Fragment>
           )}
 
-        </div>
+        </HeaderActions>
       </HeaderContainer>
       <ViewContainer>
         <TextColumn>

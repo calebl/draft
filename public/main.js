@@ -15,8 +15,6 @@ const menuTemplate = [
     label: app.name,
     submenu: [
       { role: 'about' },
-      // { type: 'separator' },
-      // { role: 'services' },
       { type: 'separator' },
       { role: 'hide' },
       { role: 'hideothers' },
@@ -40,8 +38,11 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true
-    }
-  })
+    },
+    // frame: false,
+    // transparent: true
+    titleBarStyle: 'hidden'
+  });
 
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||

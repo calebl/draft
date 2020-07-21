@@ -5,36 +5,46 @@ export const Container = styled.div`
   flex-direction: column;
   
   position: absolute;
-  top: 10px;
-  right: 10px;
-  left: 10px;
-  bottom: 10px;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
 `;
 
 export const HeaderContainer = styled.div`
   height: 30px;
   width: 100%;
-  text-align: left;
+  text-align: center;
   
   display: flex;
   align-items: start;
   justify-content: space-between;
   
-  margin-bottom: 10px;
 `;
 
 export const Title = styled.h3`
   margin-top: 0;
-  color: ${props => props.theme.purple};
+  color: ${props => props.theme.gray};
+  flex: 1;
+  font-size: 14px;
+  line-height: 30px;
+`;
+
+export const HeaderActions = styled.div`
+  position: absolute;
+  right: 0;
+
 `;
 
 export const HeaderActionStyles = css`
-  color: ${props => props.theme.black};
-  border: 1px solid ${props => props.theme.black};
+  color: ${props => props.theme.gray};
+  border: 1px solid ${props => props.theme.gray};
   background: none;
   border-radius: ${props => props.theme.borderRadius};
   padding: 5px 10px;
   font-weight: bold;
+  font-size: 12px;
+  box-sizing: border-box;
   
   &:hover {
     color: ${props => props.theme.black};

@@ -3,6 +3,7 @@ export const theme = {
   blue: 'blue',
   purple: 'black',
   lightgray: 'lightgray',
+  gray: 'gray',
 
   borderRadius: '5px'
 };

@@ -4,7 +4,7 @@ import {Parser} from "html-to-react";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {countWords} from "../utils/counter";
 
-import {Container, HeaderActionStyles} from "../elements";
+import {Container, HeaderActions, HeaderActionStyles, HeaderContainer, Title} from "../elements";
 
 const ViewContainer = styled.div`
   overflow: hidden;
@@ -26,7 +26,7 @@ const ColumnContent = styled.div`
 `;
 
 const TextColumn = styled.div`
-  padding: 20px;
+  padding: 40px 20px;
   background-color: #EFEFEF;
   overflow: auto;
   height: 100%;
@@ -50,10 +50,18 @@ const SummaryColumn = styled.div`
 const StyledButton = styled.button`
   ${HeaderActionStyles}
   
+  color: black;
+  border-color: black;
   margin-top: 80px;
   font-size: 14px;
   cursor: pointer;
   
+`;
+
+const HeaderLink = styled(Link)`
+  ${HeaderActionStyles}
+  
+  margin-right: 5px;
 `;
 
 interface OverlayProps {
@@ -78,6 +86,28 @@ const CopiedOverlay = styled.div`
   
   h1 {
     color: rgba(0,0,0,0.6);
+  }
+`;
+
+const StyledLink = styled(Link)`
+  border: 2px solid ${props => props.theme.black};
+  color: ${props => props.theme.black};
+  font-weight: bold;
+  
+  border-radius: 5px;
+  width: 200px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s;
+  
+  &:hover, &:active {
+    text-decoration: none;
+    
+    color: ${props => props.theme.black};
+    background-color: ${props => props.theme.lightgray};
   }
 `;
 
@@ -127,7 +157,22 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
 
   return (
     <Container>
+      <HeaderContainer>
+        <Title data-cy={'header'}>Summary</Title>
+        <HeaderActions>
+          {text === '' ? (
+            <HeaderLink to='/'>Cancel</HeaderLink>
+          ):(
+            <React.Fragment>
+              <HeaderLink to='/'>Pause</HeaderLink>
+              <HeaderLink to='/compose'>Resume</HeaderLink>
+            </React.Fragment>
+          )}
+
+        </HeaderActions>
+      </HeaderContainer>
       <ViewContainer>
+
         <Column>
           <TextColumn data-cy={"text-content"} ref={(c) => textComponent = c} onClick={copyToClipboard}>
             {viewText}
@@ -138,12 +183,12 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
 
         <SummaryColumn>
           <ColumnContent>
-            <h4>Summary</h4>
+            {/*<h4>Summary</h4>*/}
             <p>Word Count: <span data-cy={"word-count"}>{wordCount}</span></p>
 
-            <StyledButton onClick={saveSession} data-cy={"session-complete"}>Complete Session</StyledButton>
-            <p><Link to={"/"}>Pause</Link></p>
-            <p><Link to={"/compose"}>Resume</Link></p>
+            <StyledButton onClick={saveSession} data-cy={"session-complete"}>Archive Session</StyledButton>
+            {/*<p><Link to={"/"}>Pause</Link></p>*/}
+            {/*<p><Link to={"/compose"}>Resume</Link></p>*/}
             {/*<p><Link to={"/edit"}>Edit</Link></p>*/}
           </ColumnContent>
         </SummaryColumn>

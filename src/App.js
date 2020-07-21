@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.scss';
-import {createGlobalStyle} from "styled-components";
+import styled, {createGlobalStyle} from "styled-components";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import {loadSession} from "./actions/session";
@@ -18,6 +18,20 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.purple};
     font-weight: bold;
   }
+`;
+
+const TitleBar = styled.div`
+  height: 25px;
+  width: 100%;
+  -webkit-app-region: drag;
+`;
+
+const ContentContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 `;
 
 const routes = [
@@ -84,18 +98,21 @@ const App = props => {
   return (
     <div className="App">
       <GlobalStyle/>
-      <Router>
-        <Switch>
-          {routes.map((route, i) => {
-            const Component = route.component;
-            return (
-              <Route path={route.path} {...route.options} key={i}>
-                <Component/>
-              </Route>
-            );
-          })}
-        </Switch>
-      </Router>
+      <TitleBar/>
+      <ContentContainer>
+        <Router>
+          <Switch>
+            {routes.map((route, i) => {
+              const Component = route.component;
+              return (
+                <Route path={route.path} {...route.options} key={i}>
+                  <Component/>
+                </Route>
+              );
+            })}
+          </Switch>
+        </Router>
+      </ContentContainer>
     </div>
   );
 };
@@ -105,8 +122,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadSession : text => dispatch(loadSession(text)),
-  loadSessions : sessions => dispatch(loadSessions(sessions))
+  loadSession: text => dispatch(loadSession(text)),
+  loadSessions: sessions => dispatch(loadSessions(sessions))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
