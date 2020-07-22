@@ -3,12 +3,31 @@ import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import styled from "styled-components";
 import {Container, HeaderActions, HeaderActionStyles, HeaderContainer, Title} from "../elements";
 import {Parser} from "html-to-react";
+import {countWords} from "../utils/counter";
+import TextView from "./TextView";
 
 const SessionRow = styled.div`
+  min-width: 400px;
+  margin-right: 20px;
+  height: 100%;
+`;
+
+const SessionRowHeader = styled.div`
+  
+`;
+
+const SessionRowContent = styled.div`
   display: flex;
   flex-direction: row;
   background: lightgray;
-  margin-bottom: 20px;
+  padding: 10px;
+  position: relative;
+  height: 100%;
+`;
+
+const TextColumn = styled.div`
+  background: lightgray;
+  overflow: auto;
 `;
 
 const HeaderLink = styled(Link)`
@@ -18,39 +37,56 @@ const HeaderLink = styled(Link)`
 `;
 
 const ViewContainer = styled.div`
+  position: relative; 
+  padding: 20px;
+  overflow: hidden;
+`;
+
+const ViewContent = styled.div`
   overflow: auto;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row-reverse;
   
   flex: 1;
-`;
+`
 
 interface PropTypes extends RouteComponentProps {
-  sessions : Session[];
+  sessions: Session[];
 }
 
-const Sessions = ({sessions, history} : PropTypes) => {
+const Sessions = ({sessions, history}: PropTypes) => {
 
-  let sessionRows = sessions.map(session => {
-    const htmlParser = new Parser();
+  let sessionRows = sessions.map((session, index) => {
     const text = session.text ?? '';
-    const viewText = htmlParser.parse(text);
+    const wordCount = countWords(text);
 
-    return <SessionRow><div>{viewText}</div><div>word count: {session.wordCount}</div></SessionRow>
+    return (
+      <SessionRow>
+        <SessionRowHeader>{`Session ${index} - ${wordCount}`}</SessionRowHeader>
+        <SessionRowContent>
+          <TextColumn>
+            <TextView text={text}/>
+          </TextColumn>
+        </SessionRowContent>
+
+      </SessionRow>
+    )
   });
 
   return (
     <Container>
-      <HeaderContainer>
-        <Title data-cy={'header'}>Session Archive</Title>
-        <HeaderActions>
-          <HeaderLink to='/'>Home</HeaderLink>
-        </HeaderActions>
-      </HeaderContainer>
-      <ViewContainer>
-        {sessionRows}
-      </ViewContainer>
+        <HeaderContainer>
+          <Title data-cy={'header'}>Session Archive</Title>
+          <HeaderActions>
+            <HeaderLink to='/'>Home</HeaderLink>
+          </HeaderActions>
+        </HeaderContainer>
+        <ViewContainer>
+          <ViewContent className={"container-content"}>
+            {sessionRows}
+          </ViewContent>
+        </ViewContainer>
     </Container>
   )
 };

@@ -17,6 +17,9 @@ const initialState : StateType = {
 const sessions = (state = initialState, action : SessionsAction) => {
   switch(action.type) {
     case ActionType.RECORD_SESSION:
+      if(action.session) {
+        action.session.createdAt = (new Date()).toISOString();
+      }
       return Object.assign({}, state, {
         sessions: [...state.sessions, action.session]
       });

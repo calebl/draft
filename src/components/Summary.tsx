@@ -5,6 +5,7 @@ import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {countWords} from "../utils/counter";
 
 import {Container, HeaderActions, HeaderActionStyles, HeaderContainer, Title} from "../elements";
+import TextView from "./TextView";
 
 const ViewContainer = styled.div`
   overflow: hidden;
@@ -64,31 +65,6 @@ const HeaderLink = styled(Link)`
   margin-right: 5px;
 `;
 
-interface OverlayProps {
-  show: boolean
-}
-
-const CopiedOverlay = styled.div`
-  user-select: none;
-  background: rgba(200,200,200, 0.8);
-  opacity: ${(props:OverlayProps) => props.show ? '1' : '0'};
-  z-index: ${(props:OverlayProps) => props.show ? '1' : '-1'};
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.5s;
-  
-  h1 {
-    color: rgba(0,0,0,0.6);
-  }
-`;
-
 interface PropTypes extends RouteComponentProps {
   session: Session;
   recordSession: (session: Session) => void;
@@ -97,13 +73,8 @@ interface PropTypes extends RouteComponentProps {
 
 
 const Summary = ({session, recordSession, clearSession, history}: PropTypes) => {
-  const [showCopiedOverlay, setShowCopiedOverlay] = useState(false);
-  const htmlParser = new Parser();
   const text = session.text ?? '';
-  const viewText = htmlParser.parse(text);
-  let textComponent:HTMLDivElement|null;
-
-  const COPY_TEXT_OVERLAY_TIMEOUT = 2000;
+  let wordCount = countWords(text);
 
   useEffect(()=>{
     // record time
@@ -115,23 +86,6 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
     history.push("/")
   };
 
-  const copyToClipboard = () => {
-    if(textComponent!==null) {
-      let range = document.createRange();
-      range.selectNode(textComponent);
-      window.getSelection()?.removeAllRanges();
-      window.getSelection()?.addRange(range);
-      document.execCommand("copy");
-      window.getSelection()?.removeAllRanges();
-
-      setShowCopiedOverlay(true);
-      setTimeout(()=>{
-        setShowCopiedOverlay(false);
-      },COPY_TEXT_OVERLAY_TIMEOUT)
-    }
-  };
-
-  let wordCount = countWords(text);
 
   return (
     <Container>
@@ -152,11 +106,9 @@ const Summary = ({session, recordSession, clearSession, history}: PropTypes) => 
       <ViewContainer>
 
         <Column>
-          <TextColumn data-cy={"text-content"} ref={(c) => textComponent = c} onClick={copyToClipboard}>
-            {viewText}
+          <TextColumn>
+            <TextView text={text}/>
           </TextColumn>
-          <CopiedOverlay show={showCopiedOverlay}><h1>Copied!</h1></CopiedOverlay>
-
         </Column>
 
         <SummaryColumn>

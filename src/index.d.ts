@@ -1,6 +1,6 @@
 interface Session {
   text?: string;
-  wordCount?: number;
+  createdAt?: string;
 }
 
 declare module 'trix';
