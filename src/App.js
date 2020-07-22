@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.scss';
 import styled, {createGlobalStyle} from "styled-components";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom";
 
 import {loadSession} from "./actions/session";
 import {loadSessions} from "./actions/sessions";
@@ -11,7 +11,10 @@ import EditContainer from "./containers/EditContainer";
 import HomeContainer from "./containers/HomeContainer";
 import SummaryContainer from "./containers/SummaryContainer";
 
+import Controller from "./components/Controller";
+
 import {connect} from "react-redux"
+import SessionsContainer from "./containers/SessionsContainer";
 
 const GlobalStyle = createGlobalStyle`
   a {
@@ -56,6 +59,11 @@ const routes = [
     options: {},
   },
   {
+    component: SessionsContainer,
+    path: "/archive",
+    options: {}
+  },
+  {
     component: HomeContainer,
     path: "*"
   }
@@ -63,44 +71,13 @@ const routes = [
 
 const App = props => {
 
-  // useEffect(() => {
-  //   const ipc = window.require('electron').ipcRenderer;
-  //
-  //   //receive getProjectState and reply with project state
-  //   ipc.on("getProjectState", (event) => {
-  //     event.sender.send("saveProjectState", props.state)
-  //   });
-  //
-  //   ipc.on('openProject', (event) => {
-  //     event.sender.send('openProject');
-  //   })
-  //
-  //   ipc.on('projectData', (event, data) => {
-  //     console.log("file data received");
-  //
-  //     try {
-  //       const loadedState = JSON.parse(data);
-  //       props.loadSession(loadedState.session.text);
-  //       props.loadSessions(loadedState.sessions.sessions);
-  //
-  //     } catch {
-  //       alert("error loading project")
-  //     }
-  //
-  //     //TODO: load file data into state
-  //   });
-  //
-  //   ipc.on('projectSaved', (event => {
-  //     alert('file saved!')
-  //   }));
-  // },[props]);
-
   return (
     <div className="App">
       <GlobalStyle/>
       <TitleBar/>
       <ContentContainer>
         <Router>
+          <Controller/>
           <Switch>
             {routes.map((route, i) => {
               const Component = route.component;

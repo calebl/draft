@@ -23,6 +23,23 @@ const menuTemplate = [
       { role: 'quit' }
     ]
   }] : []),
+  {
+    label: "Sessions",
+    submenu: [
+      {
+        label: "Start / Resume",
+        click: () => {
+          mainWindow.webContents.send('startSession');
+        }
+      },
+      {
+        label: "View Archive",
+        click: () => {
+          mainWindow.webContents.send('viewSessionArchive')
+        }
+      }
+    ]
+  }
   // { role: 'fileMenu' }
   // {
   //   label: 'File',
@@ -55,29 +72,7 @@ function createWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = null
-  })
-
-  // const menu = Menu.getApplicationMenu();
-  // menu.insert(1, new MenuItem({
-  //   label: "Project",
-  //   submenu: [
-  //     {
-  //       label: "Open",
-  //       click: () => {
-  //         mainWindow.webContents.send('openProject');
-  //       }
-  //     },
-  //     {
-  //       label: "Save",
-  //       click: () => {
-  //         mainWindow.webContents.send('getProjectState')
-  //       }
-  //     }
-  //   ]
-  // }));
-
-  const menu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(menu);
+  });
 
   if(isDevelopment) {
     mainWindow.webContents.openDevTools();
@@ -93,7 +88,14 @@ function createWindow() {
         },
       ]).popup(mainWindow);
     });
+
+    menuTemplate.push({ role: 'viewMenu'});
   }
+
+  const menu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(menu);
+
+
 }
 
 app.on('ready', createWindow);

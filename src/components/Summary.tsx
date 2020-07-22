@@ -89,28 +89,6 @@ const CopiedOverlay = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
-  border: 2px solid ${props => props.theme.black};
-  color: ${props => props.theme.black};
-  font-weight: bold;
-  
-  border-radius: 5px;
-  width: 200px;
-  height: 140px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: all 0.2s;
-  
-  &:hover, &:active {
-    text-decoration: none;
-    
-    color: ${props => props.theme.black};
-    background-color: ${props => props.theme.lightgray};
-  }
-`;
-
 interface PropTypes extends RouteComponentProps {
   session: Session;
   recordSession: (session: Session) => void;
