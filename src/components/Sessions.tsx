@@ -28,6 +28,7 @@ const SessionRowContent = styled.div`
 const TextColumn = styled.div`
   background: lightgray;
   overflow: auto;
+  width: 100%;
 `;
 
 const HeaderLink = styled(Link)`
@@ -45,11 +46,12 @@ const ViewContainer = styled.div`
 const ViewContent = styled.div`
   overflow: auto;
   display: flex;
-  justify-content: center;
   flex-direction: row-reverse;
+  height: 100%;
+  width: 100%;
   
   flex: 1;
-`
+`;
 
 interface PropTypes extends RouteComponentProps {
   sessions: Session[];
