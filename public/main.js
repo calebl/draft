@@ -23,11 +23,13 @@ const menuTemplate = [
       { role: 'quit' }
     ]
   }] : []),
+  { role: 'editMenu'},
   {
     label: "Sessions",
     submenu: [
       {
         label: "Start / Resume",
+        accelerator: 'CmdOrCtrl+N',
         click: () => {
           mainWindow.webContents.send('startSession');
         }
@@ -74,21 +76,25 @@ function createWindow() {
     mainWindow = null
   });
 
-  if(isDevelopment) {
-    mainWindow.webContents.openDevTools();
-
-    // add inspect element on right click menu
-    mainWindow.webContents.on('context-menu', (e, props) => {
-      Menu.buildFromTemplate([
+  // add inspect element on right click menu
+  mainWindow.webContents.on('context-menu', (e, props) => {
+    Menu.buildFromTemplate([
+      {role : 'copy'},
+      {role : 'cut'},
+      {role : 'paste'},
+      ...(isDevelopment ? [
+        { type: 'separator' },
         {
           label: 'Inspect element',
           click() {
             mainWindow.inspectElement(props.x, props.y);
           },
-        },
-      ]).popup(mainWindow);
-    });
+        }
+      ] : []),
+    ]).popup(mainWindow);
+  });
 
+  if(isDevelopment) {
     menuTemplate.push({ role: 'viewMenu'});
   }
 
