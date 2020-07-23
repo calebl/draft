@@ -4,6 +4,7 @@ import {Parser} from "html-to-react";
 
 const TextDiv = styled.div`
   padding: 5px;
+  font-size: 12px;
   white-space: pre-wrap;
   pre {
     white-space: pre-wrap;

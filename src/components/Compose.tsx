@@ -77,8 +77,15 @@ const ComposerContainer = styled.div`
   justify-content: center;
 `;
 
+
+interface HeaderLinkProps {
+  visible?: boolean;
+}
+
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
+  
+  visibility: ${(props: HeaderLinkProps) => props.visible === false ? 'hidden' : 'visible'};
   
   margin-right: 5px;
 `;
@@ -136,7 +143,7 @@ const Compose = ({text, addToSession} : PropTypes) => {
           ):(
             <React.Fragment>
               <HeaderLink data-cy={"pause-session"} to='/'>Pause</HeaderLink>
-              <HeaderLink data-cy={"session-done"} to='/summary'>Done</HeaderLink>
+              <HeaderLink visible={content === ''} data-cy={"session-done"} to='/summary'>Done</HeaderLink>
             </React.Fragment>
           )}
 

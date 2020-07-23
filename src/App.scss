@@ -1,7 +1,10 @@
 @import "./styles/trix";
+@import "./assets/fonts";
 
 .App {
   text-align: center;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
 }
 
 a {
@@ -11,5 +14,4 @@ a {
     text-decoration: none;
   }
 }
-
 
