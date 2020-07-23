@@ -19,7 +19,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: start;
   justify-content: space-between;
-  
+  user-select: none;
 `;
 
 export const Title = styled.h3`

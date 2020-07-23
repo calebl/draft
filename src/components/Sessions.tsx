@@ -9,7 +9,8 @@ import TextView from "./TextView";
 const SessionRow = styled.div`
   min-width: 400px;
   margin-right: 20px;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SessionRowHeader = styled.div`
@@ -22,7 +23,8 @@ const SessionRowContent = styled.div`
   background: lightgray;
   padding: 10px;
   position: relative;
-  height: 100%;
+  flex: 1;
+  overflow: auto;
 `;
 
 const TextColumn = styled.div`
@@ -30,6 +32,14 @@ const TextColumn = styled.div`
   overflow: auto;
   width: 100%;
 `;
+
+const WordCount = styled.div`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 14px;
+  color: gray;
+`
 
 const HeaderLink = styled(Link)`
   ${HeaderActionStyles}
@@ -46,7 +56,7 @@ const ViewContainer = styled.div`
 const ViewContent = styled.div`
   overflow: auto;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   height: 100%;
   width: 100%;
   
@@ -59,22 +69,27 @@ interface PropTypes extends RouteComponentProps {
 
 const Sessions = ({sessions, history}: PropTypes) => {
 
+  let totalWords = 0;
   let sessionRows = sessions.map((session, index) => {
     const text = session.text ?? '';
     const wordCount = countWords(text);
+    totalWords += wordCount;
 
     return (
       <SessionRow>
-        <SessionRowHeader>{`Session ${index} - ${wordCount}`}</SessionRowHeader>
+        <SessionRowHeader>{`Session ${index}`}</SessionRowHeader>
         <SessionRowContent>
           <TextColumn>
             <TextView text={text}/>
           </TextColumn>
+          <WordCount>{`${wordCount} words`}</WordCount>
         </SessionRowContent>
 
       </SessionRow>
     )
   });
+
+
 
   return (
     <Container>
@@ -86,7 +101,7 @@ const Sessions = ({sessions, history}: PropTypes) => {
         </HeaderContainer>
         <ViewContainer>
           <ViewContent className={"container-content"}>
-            {sessionRows}
+            {sessionRows.reverse()}
           </ViewContent>
         </ViewContainer>
     </Container>
