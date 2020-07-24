@@ -2,7 +2,6 @@ import React from "react";
 import {Link, RouteComponentProps, withRouter} from "react-router-dom";
 import styled from "styled-components";
 import {Container, HeaderActions, HeaderActionStyles, HeaderContainer, Title} from "../elements";
-import {Parser} from "html-to-react";
 import {countWords} from "../utils/counter";
 import TextView from "./TextView";
 
@@ -13,8 +12,9 @@ const SessionRow = styled.div`
   flex-direction: column;
 `;
 
-const SessionRowHeader = styled.div`
-  
+const SessionRowHeader = styled.h4`
+  margin-bottom: 0;
+  text-align: center;
 `;
 
 const SessionRowContent = styled.div`
@@ -51,6 +51,7 @@ const ViewContainer = styled.div`
   position: relative; 
   padding: 20px;
   overflow: hidden;
+  height: 100%;
 `;
 
 const ViewContent = styled.div`
