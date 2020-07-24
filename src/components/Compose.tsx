@@ -2,6 +2,7 @@ import React, {useState, useEffect, KeyboardEvent} from "react";
 import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import debounce from "debounce";
 import {withRouter, Link, RouteComponentProps} from "react-router-dom";
 import {Container, HeaderContainer, Title, HeaderActionStyles, HeaderActions} from "../elements";
 import TextEditor from "./TextEditor";
@@ -92,13 +93,16 @@ const HeaderLink = styled(Link)`
 
 interface PropTypes extends RouteComponentProps {
   text?: string,
-  addToSession: (text : string) => void
+  typing: string,
+  addToSession: (text : string) => void,
+  setTyping: (typing : string) => void
 }
 
-const Compose = ({text, addToSession} : PropTypes) => {
+const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
   const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(typing);
+  const debounceSave = debounce(setTyping, 1000);
 
   const scrollToBottom = () => {
     if (messagesEndRef.current?.scrollIntoView) {
@@ -117,6 +121,7 @@ const Compose = ({text, addToSession} : PropTypes) => {
 
   const clearContent = () => {
     setContent('');
+    setTyping('');
   };
 
   const addText = () => {
@@ -128,6 +133,7 @@ const Compose = ({text, addToSession} : PropTypes) => {
 
   const updateContent = (contentAsHtml:string) => {
     setContent(contentAsHtml);
+    debounceSave(contentAsHtml);
   };
 
   const viewText = htmlParser.parse(text ?? '');

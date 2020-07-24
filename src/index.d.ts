@@ -1,5 +1,6 @@
 interface Session {
   text?: string;
+  typing: string;
   createdAt?: string;
 }
 

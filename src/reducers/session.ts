@@ -5,7 +5,8 @@ interface SessionAction extends Session {
 }
 
 const initialState : Session = {
-  text: ''
+  text: '',
+  typing: ''
 };
 
 const session = (state = initialState, action : SessionAction) => {
@@ -15,6 +16,12 @@ const session = (state = initialState, action : SessionAction) => {
       return Object.assign({}, state, {
         text: updatedContent
       });
+
+    case ActionType.ADD_TO_TYPING:
+      return Object.assign({}, state, {
+        typing: action.typing
+      });
+
     case ActionType.UPDATE_SESSION_TEXT:
       return Object.assign({}, state, {
         text: action.text

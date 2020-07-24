@@ -47,11 +47,12 @@ const StyledLogo = styled.img`
 
 interface PropTypes extends RouteComponentProps {
   text?: string,
+  typing?: string,
   sessions: Session[]
 }
 
-const Home = ({text, sessions} : PropTypes) => {
-  const actionText = (text !== '') ? 'Resume Session' : 'Start New Session';
+const Home = ({text, typing, sessions, history} : PropTypes) => {
+  const actionText = (text !== '' || typing !== '') ? 'Resume Session' : 'Start New Session';
 
   return (
 
@@ -63,7 +64,6 @@ const Home = ({text, sessions} : PropTypes) => {
 
       <div>
         <StyledLink data-cy={"start-session"} to="/compose">{actionText}</StyledLink>
-        {/*{`Total sessions: ${sessions.length}`}*/}
       </div>
     </HomeContainer>
   )

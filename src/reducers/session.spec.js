@@ -1,20 +1,27 @@
 import sessionReducer from './session';
 import {
   addToSession,
+  addToTyping,
   updateSession,
   clearSession,
   loadSession
 } from "../actions/session";
 
 const defaultState = {
-  text: ''
+  text: '',
+  typing: ''
 };
 
-describe("Story reducer", ()=> {
+describe("Session reducer", ()=> {
   it("Returns default state if no known actions are called", () => {
     const result = sessionReducer(defaultState, { type: "UNKNOWN_ACTION" });
     expect(result).toBe(defaultState);
   });
+
+  it("Updates typing when ADD_TO_TYPING is called", ()=>{
+    const result = sessionReducer(defaultState, addToTyping('here is some text'));
+    expect(result).toHaveProperty('typing', 'here is some text');
+  })
 
   it("Adds to the story text when ADD_TO_STORY is called", ()=>{
     const result = sessionReducer(defaultState, addToSession('new text'));

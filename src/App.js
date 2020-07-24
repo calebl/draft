@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.scss';
 import styled, {createGlobalStyle} from "styled-components";
-import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import {loadSession} from "./actions/session";
 import {loadSessions} from "./actions/sessions";
