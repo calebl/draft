@@ -77,10 +77,10 @@ const Sessions = ({sessions, history}: PropTypes) => {
     totalWords += wordCount;
 
     return (
-      <SessionRow>
-        <SessionRowHeader>{`Session ${index}`}</SessionRowHeader>
+      <SessionRow data-cy={'archived-session'}>
+        <SessionRowHeader data-cy={'session-header'}>{`Session ${index}`}</SessionRowHeader>
         <SessionRowContent>
-          <TextColumn>
+          <TextColumn data-cy={'session-text'}>
             <TextView text={text}/>
           </TextColumn>
           <WordCount>{`${wordCount} words`}</WordCount>

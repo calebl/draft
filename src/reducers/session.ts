@@ -32,7 +32,8 @@ const session = (state = initialState, action : SessionAction) => {
 
     case ActionType.LOAD_SESSION:
       return Object.assign({}, state, {
-        text: action.text
+        text: action.text,
+        typing: ''
       });
 
     default:

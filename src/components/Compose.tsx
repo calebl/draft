@@ -142,7 +142,7 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
   return (
     <ComposeContainer>
       <HeaderContainer>
-        <Title data-cy={'header'}></Title>
+        <Title data-cy={'header'}/>
         <HeaderActions>
           {text === '' ? (
             <HeaderLink to='/'>Cancel</HeaderLink>

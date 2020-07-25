@@ -30,25 +30,25 @@ describe("Session reducer", ()=> {
   });
 
   it("Add newline when ADD_TO_STORY is called with existing text", () => {
-    const result = sessionReducer({text: "some text"}, addToSession('new text'));
+    const result = sessionReducer({text: "some text", typing: ''}, addToSession('new text'));
 
     expect(result).toHaveProperty("text", 'some text<br/>new text');
   });
 
   it("Updates text when UPDATE_STORY_TEXT is called", ()=>{
-    const result = sessionReducer({text: "some text"}, updateSession('new text'));
+    const result = sessionReducer({text: "some text", typing: ''}, updateSession('new text'));
 
     expect(result).toHaveProperty("text", 'new text');
   })
 
   it("Clears the session when CLEAR_SESSION is called", ()=>{
-    const result = sessionReducer({text: 'some text'}, clearSession());
+    const result = sessionReducer({text: 'some text', typing: ''}, clearSession());
 
     expect(result).toHaveProperty('text', '');
   });
 
   it("Loads a new session when LOAD_SESSION is called", ()=>{
-    const result = sessionReducer({text: 'initial text'}, loadSession('loaded text'));
+    const result = sessionReducer({text: 'initial text', typing: ''}, loadSession('loaded text'));
 
     expect(result).toHaveProperty('text', 'loaded text')
   });
