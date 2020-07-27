@@ -1,4 +1,4 @@
-import React, {useState, useEffect, KeyboardEvent} from "react";
+import React, {useState, useEffect, KeyboardEvent, Profiler, ProfilerProps, ProfilerOnRenderCallback} from "react";
 import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -98,6 +98,14 @@ interface PropTypes extends RouteComponentProps {
   setTyping: (typing : string) => void
 }
 
+interface SchedulerInteraction {
+  id: number;
+  name: string;
+  timestamp: number;
+}
+
+let renderCount = 0;
+
 const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
   const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
@@ -110,7 +118,11 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
     }
   };
 
-  useEffect(scrollToBottom, [content]);
+  useEffect(() => {
+    debounceSave(content);
+  },[content]);
+
+  useEffect(scrollToBottom, [text]);
 
   const listenForEnter = (e : KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
@@ -121,7 +133,6 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
 
   const clearContent = () => {
     setContent('');
-    setTyping('');
   };
 
   const addText = () => {
@@ -133,11 +144,29 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
 
   const updateContent = (contentAsHtml:string) => {
     setContent(contentAsHtml);
-    debounceSave(contentAsHtml);
   };
 
   const viewText = htmlParser.parse(text ?? '');
   const wordCount = (text !== undefined ? countWords(text) : 0) + (content === "" ? 0 : content.split(' ').length);
+
+  // const renderProfilerCallback : ProfilerOnRenderCallback = (
+  //   id,
+  //   phase,
+  //   actualDuration,
+  //   baseDuration,
+  //   startTime,
+  //   commitTime,
+  //   interactions) => {
+  //
+  //   console.group(commitTime);
+  //   console.log(`${id} - ${phase} - ${actualDuration} - ${commitTime}`, commitTime);
+  //   console.log(interactions);
+  //
+  //   renderCount += 1;
+  //
+  //   console.log('render count: ' + renderCount);
+  //
+  // }
 
   return (
     <ComposeContainer>

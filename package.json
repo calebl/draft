@@ -1,6 +1,6 @@
 {
   "name": "draft",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": {
     "name": "Caleb LeNoir"
   },
@@ -130,7 +130,8 @@
   "build": {
     "appId": "com.curiosityandconflict.draft",
     "win": {
-      "icon": "icon.icns"
+      "icon": "icon.png",
+      "legalTrademarks": "Conflict & Curiosity"
     },
     "mac": {
       "icon": "icon.icns",
