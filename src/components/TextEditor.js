@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import Trix from "trix";
 import React, {useEffect} from "react";
 import PropTypes from "prop-types"
@@ -9,7 +10,7 @@ const TextEditor = ({content, textChanged}) => {
     if (trixInput.current.editor && content === '') {
       trixInput.current.editor.loadHTML(content);
     }
-  },[content]);
+  },[trixInput,content]);
 
   useEffect(() => {
     const listener = event => {

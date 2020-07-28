@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import Trix from "trix"
 import React from "react";
 import styled from "styled-components";
