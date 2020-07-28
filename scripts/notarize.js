@@ -12,7 +12,9 @@ exports.default = async function notarizing(context) {
     return await notarize({
         appBundleId: 'com.curiosityandconflict.draft',
         appPath: `${appOutDir}/${appName}.app`,
-        appleId: process.env.APPLEID,
-        appleIdPassword: process.env.APPLEIDPASS,
+        appleApiKey: process.env.API_KEY_ID,
+        appleApiIssuer: process.env.API_KEY_ISSUER_ID,
+        // appleId: process.env.APPLEID,
+        // appleIdPassword: process.env.APPLEIDPASS,
     });
 };

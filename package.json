@@ -158,7 +158,7 @@
         "role": "Editor"
       }
     ],
-    "afterSign": "electron-builder-notarize"
+    "afterSign": "scripts/notarize.js"
   },
   "jest": {
     "roots": [
