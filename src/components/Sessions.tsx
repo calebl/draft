@@ -70,6 +70,7 @@ interface PropTypes extends RouteComponentProps {
 
 const Sessions = ({sessions, history}: PropTypes) => {
 
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   let totalWords = 0;
   let sessionRows = sessions.map((session, index) => {
     const text = session.text ?? '';
@@ -91,20 +92,19 @@ const Sessions = ({sessions, history}: PropTypes) => {
   });
 
 
-
   return (
     <Container>
-        <HeaderContainer>
-          <Title data-cy={'header'}>Session Archive</Title>
-          <HeaderActions>
-            <HeaderLink to='/'>Home</HeaderLink>
-          </HeaderActions>
-        </HeaderContainer>
-        <ViewContainer>
-          <ViewContent className={"container-content"}>
-            {sessionRows.reverse()}
-          </ViewContent>
-        </ViewContainer>
+      <HeaderContainer>
+        <Title data-cy={'header'}>Session Archive</Title>
+        <HeaderActions>
+          <HeaderLink to='/'>Home</HeaderLink>
+        </HeaderActions>
+      </HeaderContainer>
+      <ViewContainer>
+        <ViewContent className={"container-content"}>
+          {sessionRows.reverse()}
+        </ViewContent>
+      </ViewContainer>
     </Container>
   )
 };

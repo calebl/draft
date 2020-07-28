@@ -18,7 +18,7 @@ const Controller = () => {
         history.push("/archive")
       });
     }
-  },[]);
+  });
 
   return <></>
 };
