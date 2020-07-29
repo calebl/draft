@@ -1,4 +1,4 @@
-import React, {useState, useEffect, KeyboardEvent} from "react";
+import React, {useState, useEffect, KeyboardEvent, Profiler, ProfilerOnRenderCallback} from "react";
 import {Parser} from 'html-to-react';
 import styled from "styled-components";
 import PropTypes from "prop-types";
@@ -98,6 +98,8 @@ interface PropTypes extends RouteComponentProps {
   setTyping: (typing : string) => void
 }
 
+let renderCount = 0;
+
 const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
   const messagesEndRef = React.createRef<HTMLDivElement>();
   const htmlParser = new Parser();
@@ -112,7 +114,8 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
 
   useEffect(() => {
     debounceSave(content);
-  },[debounceSave,content]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[content]);
 
   useEffect(scrollToBottom, [text]);
 
@@ -141,7 +144,26 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
   const viewText = htmlParser.parse(text ?? '');
   const wordCount = (text !== undefined ? countWords(text) : 0) + (content === "" ? 0 : content.split(' ').length);
 
+  const renderProfilerCallback : ProfilerOnRenderCallback = (
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    interactions ) => {
+
+    console.log(`${id} - ${phase} - ${actualDuration} - ${commitTime}`, commitTime);
+    console.log(interactions);
+
+    renderCount += 1;
+
+    console.log('render count: ' + renderCount);
+
+  }
+
   return (
+    <Profiler id={"Compose"} onRender={renderProfilerCallback}>
     <ComposeContainer>
       <HeaderContainer>
         <Title data-cy={'header'}/>
@@ -175,6 +197,7 @@ const Compose = ({text, typing, addToSession, setTyping} : PropTypes) => {
       </ComposerContainer>
       <WordCount data-cy={"word-count"}>{wordCount}</WordCount>
     </ComposeContainer>
+    </Profiler>
   )
 };
 
