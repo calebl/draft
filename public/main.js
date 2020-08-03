@@ -1,14 +1,39 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, autoUpdater, dialog } = require('electron');
+const electronIsDev = require('electron-is-dev');
 
 const ipc = require("electron").ipcMain;
 const path = require('path');
 const url = require('url');
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === 'development' || electronIsDev;
+
+if(!isDevelopment) {
+  const server = 'https://draft-nuts.herokuapp.com/';
+  const updaterUrl = `${server}/update/${process.platform}/${app.getVersion()}`;
+
+  autoUpdater.setFeedURL({url: updaterUrl});
+  setInterval(() => {
+    autoUpdater.checkForUpdates()
+  }, 5 * 60000);
+
+  autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+    const dialogOpts = {
+      type: 'info',
+      buttons: ['Restart', 'Later'],
+      title: 'Application Update',
+      message: process.platform === 'win32' ? releaseNotes : releaseName,
+      detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+    };
+
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+      if (returnValue.response === 0) autoUpdater.quitAndInstall()
+    })
+  });
+}
 
 let mainWindow;
 
-const isMac = process.platform === 'darwin'
+const isMac = process.platform === 'darwin';
 const menuTemplate = [
   // { role: 'appMenu' }
   ...(isMac ? [{
@@ -42,13 +67,6 @@ const menuTemplate = [
       }
     ]
   }
-  // { role: 'fileMenu' }
-  // {
-  //   label: 'File',
-  //   submenu: [
-  //     isMac ? { role: 'close' } : { role: 'quit' }
-  //   ]
-  // }
 ];
 
 function createWindow() {
