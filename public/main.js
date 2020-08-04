@@ -66,6 +66,7 @@ const menuTemplate = [
       },
       {
         label: "View Archive",
+        accelerator: "CmdOrCtrl+Shift+A",
         click: () => {
           mainWindow.webContents.send('viewSessionArchive')
         }
