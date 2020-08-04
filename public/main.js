@@ -8,7 +8,7 @@ const url = require('url');
 const isDevelopment = process.env.NODE_ENV === 'development' || electronIsDev;
 
 if(!isDevelopment) {
-  const server = 'https://draft-nuts.herokuapp.com/';
+  const server = 'https://draft-nuts.herokuapp.com';
   const updaterUrl = `${server}/update/${process.platform}/${app.getVersion()}`;
 
   autoUpdater.setFeedURL({url: updaterUrl});
@@ -29,6 +29,11 @@ if(!isDevelopment) {
       if (returnValue.response === 0) autoUpdater.quitAndInstall()
     })
   });
+
+  autoUpdater.on('error', message => {
+    console.error('There was a problem updating the application');
+    console.error(message)
+  })
 }
 
 let mainWindow;
