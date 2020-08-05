@@ -1,6 +1,6 @@
 {
   "name": "draft",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "author": {
     "name": "Caleb LeNoir"
   },
@@ -25,6 +25,7 @@
     "debounce": "^1.2.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "electron-builder-squirrel-windows": "^22.8.1",
     "electron-is-dev": "^1.2.0",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.2.1",
@@ -133,11 +134,12 @@
     "appId": "com.curiosityandconflict.draft",
     "win": {
       "icon": "icon.png",
-      "legalTrademarks": "Conflict & Curiosity"
+      "legalTrademarks": "Conflict & Curiosity",
+      "target": "zip"
     },
     "mac": {
       "icon": "icon.icns",
-      "target": "dmg",
+      "target": "zip",
       "type": "distribution",
       "hardenedRuntime": true,
       "entitlements": "build/entitlements.mac.plist",
