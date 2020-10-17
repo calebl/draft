@@ -42,7 +42,7 @@ const By = styled.small`
 `;
 
 const StyledLogo = styled.img`
-  width: 160px;;
+  width: 160px;
 `;
 
 interface PropTypes extends RouteComponentProps {
