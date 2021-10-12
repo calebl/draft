@@ -124,7 +124,7 @@
     "@types/styled-components": "^5.1.0",
     "clipboardy": "^2.3.0",
     "cypress": "^4.8.0",
-    "electron": "^8.2.5",
+    "electron": "^11.5.0",
     "electron-builder": "^22.7.0",
     "electron-builder-notarize": "^1.2.0",
     "electron-notarize": "^1.0.0",
